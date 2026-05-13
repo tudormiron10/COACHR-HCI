@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COACHR — Tablet Prototype</title>
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="tablet.css">
+</head>
+<body class="device-page">
+
+<!-- ============================================================
+     SVG SPRITE — inlined for file:// compatibility
+     ============================================================ -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11L12 4L21 11V21H3V11Z"/><path d="M10 21V14H14V21"/></symbol>
+  <symbol id="icon-send" viewBox="0 0 24 24"><polygon points="22 2 2 9 11 13 15 22 22 2"/><line x1="22" y1="2" x2="11" y2="13"/></symbol>
+  <symbol id="icon-pen" viewBox="0 0 24 24"><path d="M3 21L4 17L17 4L20 7L7 20L3 21Z"/></symbol>
+  <symbol id="icon-bolt" viewBox="0 0 24 24"><polygon points="13 2 4 14 11 14 10 22 20 10 13 10 13 2"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="4 12 9 17 20 6"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24"><polygon points="12 3 22 20 2 20"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17" x2="12" y2="17.5"/></symbol>
+  <symbol id="icon-sync" viewBox="0 0 24 24"><polyline points="21 3 21 9 15 9"/><polyline points="3 21 3 15 9 15"/><path d="M3.5 9a9 9 0 0 1 14.85-3.36L21 8"/><path d="M20.5 15a9 9 0 0 1-14.85 3.36L3 16"/></symbol>
+  <symbol id="icon-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="11"/><line x1="12" y1="12" x2="20" y2="6"/></symbol>
+  <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="7" y2="7"/><line x1="17" y1="17" x2="19" y2="19"/><line x1="5" y1="19" x2="7" y2="17"/><line x1="17" y1="7" x2="19" y2="5"/></symbol>
+  <symbol id="icon-signal" viewBox="0 0 24 24"><rect x="3" y="18" width="3" height="3"/><rect x="8" y="14" width="3" height="7"/><rect x="13" y="10" width="3" height="11"/><rect x="18" y="6" width="3" height="15"/></symbol>
+  <symbol id="icon-heat-map" viewBox="0 0 24 24"><rect x="0" y="0" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="0" width="6" height="6"/><rect x="18" y="0" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="18" y="9" width="6" height="6"/><rect x="0" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="18" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<!-- ============================================================
+     CHROME (prototype navigation only, not part of the design)
+     ============================================================ -->
+<header class="device-chrome">
+  <a href="../index.html">← Hub</a>
+  <span class="device-chrome__label">Tablet · 1366 × 1024</span>
+  <span class="device-chrome__current">T1</span>
+</header>
+
+<div class="viewport">
+
+  <!-- ============================================================
+       T1 — Coach Home Dashboard
+       ============================================================ -->
+  <section class="screen is-active" id="t1">
+    <header class="score-banner">
+      <span class="score-banner__league"><span class="banner-pulse"></span>LIVE MATCH · EL CLÁSICO</span>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <button type="button" class="t1-synced" data-go="t3" aria-label="Open 1 new synced tactic from Coach Munteanu's glasses, captured at 73 minutes 42 seconds">
+        <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-sync"/></svg>
+        <div class="t1-synced__copy">
+          <h3>1 new synced tactic</h3>
+          <p>From Coach Munteanu's glasses · <span class="ts">73'42″</span> · Defensive reshuffle on the left</p>
+        </div>
+        <div class="t1-synced__cta" aria-hidden="true">OPEN&nbsp; →</div>
+      </button>
+
+      <div class="t1-tiles">
+        <button class="t1-tile" data-go="t2">
+          <svg class="icon icon-xl"><use href="#icon-radar"/></svg>
+          <div class="t1-tile__title">Live Match<br>Hub</div>
+          <div class="t1-tile__caption">Stats · Passing networks</div>
+        </button>
+        <button class="t1-tile" data-go="t4">
+          <svg class="icon icon-xl"><use href="#icon-pen"/></svg>
+          <div class="t1-tile__title">TacticPad<br>Studio</div>
+          <div class="t1-tile__caption">Drawings · Saved formations</div>
+        </button>
+        <button class="t1-tile" data-go="t8">
+          <svg class="icon icon-xl"><use href="#icon-send"/></svg>
+          <div class="t1-tile__title">Comms<br>Relay</div>
+          <div class="t1-tile__caption">Staff channel · Message history</div>
+        </button>
+        <button class="t1-tile" data-go="t7">
+          <svg class="icon icon-xl"><use href="#icon-check"/></svg>
+          <div class="t1-tile__title">Player<br>Wellness</div>
+          <div class="t1-tile__caption">Roster · AI Skeleton</div>
+        </button>
+      </div>
+
+      <div class="t1-footer">
+        <span>COACH MUNTEANU · UEFA PRO</span>
+        <span>Spotify Camp Nou · Sat 11 May 2026 · attendance 95,422</span>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T2 — Live Match Hub Statistics
+       ============================================================ -->
+  <section class="screen" id="t2">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <div class="t-section-strip">
+        <h2>Real-Time Statistics · Live Match Hub</h2>
+        <span class="t-section-strip__meta">Last update · 1.2s ago</span>
+      </div>
+
+      <div class="t2-grid">
+        <div class="t2-card">
+          <div class="t2-card__label">Possession</div>
+          <div class="t2-card__value">64%</div>
+          <div class="t2-card__delta">RMA  36%</div>
+        </div>
+        <div class="t2-card">
+          <div class="t2-card__label">Shots (on target)</div>
+          <div class="t2-card__value">12<span style="color:var(--accent-primary)"> · 5</span></div>
+          <div class="t2-card__delta">RMA  6 · 3</div>
+        </div>
+        <div class="t2-card">
+          <div class="t2-card__label">Passes (accuracy)</div>
+          <div class="t2-card__value">487<span style="color:var(--accent-primary);font-size:0.5em"> 91%</span></div>
+          <div class="t2-card__delta">RMA  248 · 84%</div>
+        </div>
+        <div class="t2-card">
+          <div class="t2-card__label">Distance covered</div>
+          <div class="t2-card__value">78.4<span style="color:var(--accent-primary);font-size:0.5em"> km</span></div>
+          <div class="t2-card__delta">RMA  76.1 km</div>
+        </div>
+        <div class="t2-card">
+          <div class="t2-card__label">xG</div>
+          <div class="t2-card__value">1.8</div>
+          <div class="t2-card__delta">RMA  0.9</div>
+        </div>
+      </div>
+
+      <div style="flex:1"></div>
+
+      <div class="t-section-strip">
+        <span class="t-section-strip__meta">Stats refresh every 1s · feed from Metrica Sports</span>
+        <button class="btn btn-primary" data-go="t3">
+          <span>Open Passing Networks</span>
+          <svg class="icon"><use href="#icon-send"/></svg>
+        </button>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T3 — Interactive Passing Networks
+       ============================================================ -->
+  <section class="screen" id="t3">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <div class="t3-split">
+
+        <div>
+          <div class="t3-pane__header">
+            <div class="t3-pane__title">Posesie Live · BAR</div>
+            <div class="t3-pane__meta">LAST 15 MIN · 64% POSSESSION</div>
+          </div>
+          <div class="t3-network">
+            <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid-net" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="600" height="700" fill="url(#grid-net)"/>
+              <!-- attacking direction indicator -->
+              <text x="300" y="40" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Atkinson Hyperlegible" font-size="11" letter-spacing="2">↑ ATTACKING DIRECTION</text>
+
+              <!-- Connections (lines between player nodes) -->
+              <!-- Backline -->
+              <line x1="120" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.6"/>
+              <line x1="480" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.6"/>
+              <!-- Pivot -->
+              <line x1="300" y1="500" x2="300" y2="380" stroke="#D4FF00" stroke-width="4" opacity="0.9"/>
+              <line x1="300" y1="380" x2="200" y2="280" stroke="white" stroke-width="3" opacity="0.85"/>
+              <line x1="300" y1="380" x2="400" y2="280" stroke="white" stroke-width="3" opacity="0.85"/>
+              <!-- CMs to wingers -->
+              <line x1="200" y1="280" x2="140" y2="180" stroke="white" stroke-width="2" opacity="0.6"/>
+              <line x1="400" y1="280" x2="460" y2="180" stroke="white" stroke-width="2" opacity="0.6"/>
+              <!-- CM to ST -->
+              <line x1="200" y1="280" x2="300" y2="100" stroke="white" stroke-width="2" opacity="0.45"/>
+              <line x1="400" y1="280" x2="300" y2="100" stroke="white" stroke-width="2" opacity="0.45"/>
+              <!-- CM lateral -->
+              <line x1="200" y1="280" x2="400" y2="280" stroke="white" stroke-width="2" opacity="0.7"/>
+              <!-- LB and FB up -->
+              <line x1="120" y1="380" x2="200" y2="280" stroke="white" stroke-width="2" opacity="0.55"/>
+              <line x1="480" y1="380" x2="400" y2="280" stroke="white" stroke-width="2" opacity="0.55"/>
+
+              <!-- Player nodes -->
+              <g font-family="Montserrat" font-weight="700" font-size="18" fill="white">
+                <!-- GK (not shown — out of frame) -->
+
+                <!-- LB #3 Balde — error indicator -->
+                <g transform="translate(120,380)">
+                  <circle r="26" fill="#0A0A0A" stroke="#FF4500" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central" fill="#FF4500">3</text>
+                </g>
+                <text x="120" y="425" text-anchor="middle" font-size="11" fill="#FF4500" font-family="Atkinson Hyperlegible" font-weight="400">BALDE ⚠</text>
+
+                <!-- CB #4 Araújo (captain, highlighted hub) -->
+                <g transform="translate(300,500)">
+                  <circle r="28" fill="#D4FF00" stroke="#D4FF00" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central" fill="#0A0A0A">4</text>
+                </g>
+                <text x="300" y="546" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.7)" font-family="Atkinson Hyperlegible" font-weight="400">ARAÚJO (C)</text>
+
+                <!-- RB #20 Sergi Roberto -->
+                <g transform="translate(480,380)">
+                  <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">20</text>
+                </g>
+                <text x="480" y="421" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">S. ROBERTO</text>
+
+                <!-- CDM #21 De Jong -->
+                <g transform="translate(300,380)">
+                  <circle r="26" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">21</text>
+                </g>
+                <text x="300" y="424" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">DE JONG</text>
+
+                <!-- LCM #8 Pedri -->
+                <g transform="translate(200,280)">
+                  <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">8</text>
+                </g>
+                <text x="200" y="320" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">PEDRI</text>
+
+                <!-- RCM #6 Gavi (fatigue) -->
+                <g transform="translate(400,280)">
+                  <circle r="24" fill="#0A0A0A" stroke="#FF4500" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central" fill="#FF4500">6</text>
+                </g>
+                <text x="400" y="320" text-anchor="middle" font-size="11" fill="#FF4500" font-family="Atkinson Hyperlegible">GAVI ⚠</text>
+
+                <!-- LW #10 Ansu Fati -->
+                <g transform="translate(140,180)">
+                  <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">10</text>
+                </g>
+                <text x="140" y="220" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">A. FATI</text>
+
+                <!-- RW #11 Raphinha -->
+                <g transform="translate(460,180)">
+                  <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">11</text>
+                </g>
+                <text x="460" y="220" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">RAPHINHA</text>
+
+                <!-- ST #19 Yamal -->
+                <g transform="translate(300,100)">
+                  <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                  <text text-anchor="middle" dominant-baseline="central">19</text>
+                </g>
+                <text x="300" y="60" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">YAMAL</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="t3-right">
+          <div class="t3-pane__header">
+            <div class="t3-pane__title">TacticPad · Synced Capture</div>
+            <div class="t3-pane__meta">FROM AR · <span class="ts">73'42″</span></div>
+          </div>
+
+          <div class="t3-pitch-wrap">
+            <!-- Mini pitch with the captured error zone highlighted -->
+            <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+              <!-- Pitch background -->
+              <rect width="800" height="500" fill="#1C1C1E"/>
+              <!-- Markings -->
+              <g stroke="white" stroke-width="2" fill="none">
+                <rect x="20" y="20" width="760" height="460"/>
+                <line x1="400" y1="20" x2="400" y2="480"/>
+                <circle cx="400" cy="250" r="60"/>
+                <rect x="20" y="125" width="120" height="250"/>
+                <rect x="660" y="125" width="120" height="250"/>
+                <rect x="20" y="190" width="50" height="120"/>
+                <rect x="730" y="190" width="50" height="120"/>
+              </g>
+              <!-- Position error highlight zone -->
+              <circle cx="160" cy="280" r="50" fill="#FF4500" fill-opacity="0.15" stroke="#FF4500" stroke-width="2" stroke-dasharray="4,4"/>
+              <text x="160" y="360" text-anchor="middle" fill="#FF4500" font-family="Montserrat" font-size="11" letter-spacing="2" font-weight="700">POSITION ERROR · #3</text>
+            </svg>
+          </div>
+
+          <div class="t3-cta-bar">
+            <div class="t3-pane-foot">
+              <svg class="icon icon-sm" style="color: var(--accent-primary)"><use href="#icon-bolt"/></svg>
+              AI confidence: 94% · Left-back overcommitted forward
+            </div>
+            <button class="btn btn-primary" data-go="t4">
+              <svg class="icon"><use href="#icon-pen"/></svg>
+              <span>Open in TacticPad</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T4 — TacticPad Studio (Drawing Mode)
+       ============================================================ -->
+  <section class="screen" id="t4">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <div class="t-section-strip">
+        <h2>TacticPad Studio · Defensive Schema</h2>
+        <span class="t-section-strip__meta">Editing tactic captured at <span class="ts" style="color:var(--accent-primary)">73'42″</span></span>
+      </div>
+
+      <div class="t4-toolbar">
+        <button class="t4-tool is-active">
+          <svg class="icon"><use href="#icon-pen"/></svg>
+          Pen
+        </button>
+        <button class="t4-tool">
+          <span style="font-size:18px">⌒</span>
+          Curve
+        </button>
+        <button class="t4-tool">
+          <span style="font-size:18px">→</span>
+          Arrow
+        </button>
+        <button class="t4-tool">
+          <svg class="icon"><use href="#icon-close"/></svg>
+          Eraser
+        </button>
+        <button class="t4-tool">Clear</button>
+        <div class="t4-spacer"></div>
+        <div style="font-family:var(--font-body);font-size:var(--size-caption);opacity:0.55;letter-spacing:0.08em">3 STROKES · 8 SECONDS ELAPSED</div>
+      </div>
+
+      <div class="t4-stage">
+        <div class="t4-alert-chip">
+          <span class="chip chip-alert">
+            <svg class="icon icon-sm"><use href="#icon-alert"/></svg>
+            <span>POSITION ERROR · #3 BALDE OUT OF LINE</span>
+          </span>
+        </div>
+
+        <svg viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <!-- Pitch markings -->
+          <g stroke="white" stroke-width="2" fill="none">
+            <rect x="20" y="20" width="1060" height="500"/>
+            <line x1="550" y1="20" x2="550" y2="520"/>
+            <circle cx="550" cy="270" r="80"/>
+            <rect x="20" y="130" width="180" height="280"/>
+            <rect x="900" y="130" width="180" height="280"/>
+            <rect x="20" y="200" width="80" height="140"/>
+            <rect x="1000" y="200" width="80" height="140"/>
+            <!-- Penalty spots -->
+            <circle cx="140" cy="270" r="3" fill="white"/>
+            <circle cx="960" cy="270" r="3" fill="white"/>
+          </g>
+
+          <!-- Existing player positions (small ghost markers) -->
+          <g fill="rgba(255,255,255,0.55)" font-family="Montserrat" font-weight="700" font-size="14">
+            <g transform="translate(220,400)">
+              <circle r="18" fill="#0A0A0A" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <text text-anchor="middle" dominant-baseline="central">3</text>
+            </g>
+            <g transform="translate(330,310)">
+              <circle r="18" fill="#0A0A0A" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <text text-anchor="middle" dominant-baseline="central">4</text>
+            </g>
+            <g transform="translate(330,210)">
+              <circle r="18" fill="#0A0A0A" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <text text-anchor="middle" dominant-baseline="central">15</text>
+            </g>
+            <g transform="translate(440,310)">
+              <circle r="18" fill="#0A0A0A" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <text text-anchor="middle" dominant-baseline="central">20</text>
+            </g>
+          </g>
+
+          <!-- DRAWN TACTIC — Energy Orange curves showing the reshuffle -->
+          <g stroke="#FF4500" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Arrow 1: #3 Balde drops back from advanced position to defensive line -->
+            <path d="M 220 400 Q 180 360 160 320" stroke-dasharray="0" />
+            <polygon points="160,320 170,330 152,332" fill="#FF4500" stroke="none"/>
+            <!-- Arrow 2: #15 Christensen shifts left to cover -->
+            <path d="M 330 210 Q 260 240 230 290" />
+            <polygon points="230,290 244,287 233,303" fill="#FF4500" stroke="none"/>
+            <!-- Arrow 3: pressing trigger for #6 Gavi -->
+            <path d="M 440 310 Q 500 270 560 240" />
+            <polygon points="560,240 553,256 545,243" fill="#FF4500" stroke="none"/>
+          </g>
+
+          <!-- New positions (faded volt-yellow targets) -->
+          <g fill="none" stroke="#D4FF00" stroke-width="2" stroke-dasharray="3,3" opacity="0.7">
+            <circle cx="160" cy="320" r="18"/>
+            <circle cx="230" cy="290" r="18"/>
+            <circle cx="560" cy="240" r="18"/>
+          </g>
+
+          <!-- Annotation -->
+          <text x="550" y="490" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Atkinson Hyperlegible" font-size="11" letter-spacing="2">DEFENSIVE RESHUFFLE · RECOMMENDED BY AI · 94% CONFIDENCE</text>
+        </svg>
+      </div>
+
+      <div class="t4-foot">
+        <div class="t4-formations">
+          <div class="t4-formation is-active">4-3-3 High Press</div>
+          <div class="t4-formation">5-3-2 Low Block</div>
+          <div class="t4-formation">4-4-2 Diamond</div>
+          <div class="t4-formation">+ Save current</div>
+        </div>
+        <button class="btn btn-primary" data-go="t5">
+          <svg class="icon"><use href="#icon-send"/></svg>
+          <span>Send Tactic</span>
+        </button>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T5 — Transmitting (auto-advance to T6)
+       ============================================================ -->
+  <section class="screen" id="t5" data-auto="t6:1200">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+      <div class="t-centered">
+        <div class="transmit-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <h2>Transmitting via Private LTE</h2>
+        <p>→ <span class="ts" style="color:var(--accent-primary)">Andrei Popa</span> · Smartwatch · ~22 ms latency</p>
+        <p style="font-size:var(--size-caption);opacity:0.5;margin-top:var(--space-32);letter-spacing:0.1em">DEDICATED CHANNEL · NO Wi-Fi DEPENDENCY · STADIUM PRIVATE NETWORK</p>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T6 — Success / Delivered
+       ============================================================ -->
+  <section class="screen" id="t6">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+      <div class="t-centered">
+        <svg class="icon icon-3xl" style="color:var(--accent-primary)"><use href="#icon-check"/></svg>
+        <h2>Tactic delivered</h2>
+        <p>Confirmed by <span class="ts" style="color:var(--accent-primary)">Andrei Popa</span> at <span class="ts" style="color:var(--accent-primary)">73'47″</span></p>
+        <p style="font-size:var(--size-caption);opacity:0.5;letter-spacing:0.08em;margin-top:var(--space-16)">END-TO-END TIME · 4.8 SECONDS · INCLUDING ASSISTANT'S VISUAL CONFIRMATION</p>
+        <button class="btn btn-secondary" data-go="t1" style="margin-top:var(--space-32)">
+          <svg class="icon"><use href="#icon-home"/></svg>
+          <span>Back to Home</span>
+        </button>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T7 — Player Wellness
+       ============================================================ -->
+  <section class="screen" id="t7">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <div class="t-section-strip">
+        <h2>Player Wellness · Morning Report</h2>
+        <span class="t-section-strip__meta">Sleep · Fatigue · Video · AI Skeleton Tracking</span>
+      </div>
+
+      <div class="t7-table">
+
+        <div class="t7-row">
+          <div class="player-number player-number-lg">14</div>
+          <div>
+            <div class="t7-row__name">Adrian Cristea</div>
+            <div class="t7-row__role">Midfielder · 24</div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Sleep</div>
+            <div class="t7-row__metric-value">7.5<span style="font-size:14px;opacity:0.55;">h</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Fatigue</div>
+            <div class="t7-row__metric-value" style="color:var(--accent-primary)">32%</div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Video clips</div>
+            <div class="t7-row__metric-value">0 <span style="font-size:11px;opacity:0.55;">unwatched</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">AI Skeleton</div>
+            <div class="t7-row__metric-value">88<span style="font-size:14px;opacity:0.5;">/100</span></div>
+          </div>
+          <button class="btn-ghost">View scan →</button>
+        </div>
+
+        <div class="t7-row t7-row--alert">
+          <div class="player-number player-number-lg player-number-alert">6</div>
+          <div>
+            <div class="t7-row__name">Gavi</div>
+            <div class="t7-row__role">Centre midfielder · 20</div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Sleep</div>
+            <div class="t7-row__metric-value">5.8<span style="font-size:14px;opacity:0.55">h</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Fatigue</div>
+            <div class="t7-row__metric-value">
+              <span class="chip chip-alert" style="font-size:11px">⚠ 71%</span>
+            </div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Video clips</div>
+            <div class="t7-row__metric-value">2 <span style="font-size:11px;opacity:0.55">unwatched</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">AI Skeleton</div>
+            <div class="t7-row__metric-value" style="color:var(--accent-alert)">64<span style="font-size:14px;opacity:0.5;">/100</span></div>
+          </div>
+          <button class="btn-ghost">View scan →</button>
+        </div>
+
+        <div class="t7-row">
+          <div class="player-number player-number-lg">8</div>
+          <div>
+            <div class="t7-row__name">Pedri</div>
+            <div class="t7-row__role">Centre midfielder · 23</div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Sleep</div>
+            <div class="t7-row__metric-value">6.2<span style="font-size:14px;opacity:0.55">h</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Fatigue</div>
+            <div class="t7-row__metric-value" style="color:var(--accent-primary)">48%</div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">Video clips</div>
+            <div class="t7-row__metric-value">1 <span style="font-size:11px;opacity:0.55;">unwatched</span></div>
+          </div>
+          <div>
+            <div class="t7-row__metric-label">AI Skeleton</div>
+            <div class="t7-row__metric-value">79<span style="font-size:14px;opacity:0.5;">/100</span></div>
+          </div>
+          <button class="btn-ghost">View scan →</button>
+        </div>
+
+      </div>
+
+      <div style="flex:1"></div>
+
+      <div class="t-section-strip">
+        <span class="t-section-strip__meta">Adrian Cristea — self-reported from his mobile · 06:42 AM</span>
+        <button class="btn btn-secondary" data-go="t1">
+          <svg class="icon"><use href="#icon-home"/></svg>
+          <span>Back to Dashboard</span>
+        </button>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ============================================================
+       T8 — Communication / Staff Relay (Private LTE)
+       ============================================================ -->
+  <section class="screen" id="t8">
+    <header class="score-banner">
+      <a class="score-banner__back" data-go="t1">← Dashboard</a>
+      <span class="score-banner__teams">BAR <span class="vs">1 – 1</span> RMA</span>
+      <span class="score-banner__minute">73'</span>
+    </header>
+    <main class="t-screen-body">
+
+      <div class="t-section-strip">
+        <h2>Communication · Staff Relay</h2>
+        <span class="t-section-strip__meta">Private 5G · Stadium network · 22 ms median latency · no Wi-Fi dependency</span>
+      </div>
+
+      <div class="t8-top">
+
+        <div class="t8-card">
+          <div>
+            <div class="t8-card__label">Active channel</div>
+            <div class="t8-card__title">COACHR · LIVE MATCH</div>
+          </div>
+          <div class="t8-channel-details">
+            <div class="t8-channel-details__row">
+              <span class="t8-channel-dot"></span>
+              <span>Connected · 4 / 5 bars · end-to-end encrypted</span>
+            </div>
+            <div class="t8-channel-details__row">
+              <svg class="icon icon-sm" style="color:var(--accent-primary);opacity:1"><use href="#icon-signal"/></svg>
+              <span>22 ms median · 38 ms p95 · dedicated stadium uplink</span>
+            </div>
+            <div class="t8-channel-details__row">
+              <svg class="icon icon-sm"><use href="#icon-bolt"/></svg>
+              <span>Auto-routing: AI alerts forward to relevant staff</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="t8-card">
+          <div>
+            <div class="t8-card__label">Connected staff · 3 online</div>
+            <div class="t8-card__title">Touchline channel</div>
+          </div>
+          <div class="t8-staff-list">
+            <div class="t8-staff-row">
+              <div class="t8-avatar">AP</div>
+              <div>
+                <div class="t8-staff-row__name">Andrei Popa</div>
+                <div class="t8-staff-row__role">Assistant Coach · Smartwatch · 22 ms</div>
+              </div>
+              <span class="t8-status-dot t8-status-dot--online">Online</span>
+            </div>
+            <div class="t8-staff-row">
+              <div class="t8-avatar">DC</div>
+              <div>
+                <div class="t8-staff-row__name">Dr. Carmen Diaz</div>
+                <div class="t8-staff-row__role">Team Doctor · Tablet · 28 ms</div>
+              </div>
+              <span class="t8-status-dot t8-status-dot--online">Online</span>
+            </div>
+            <div class="t8-staff-row">
+              <div class="t8-avatar">FT</div>
+              <div>
+                <div class="t8-staff-row__name">Florin Tudor</div>
+                <div class="t8-staff-row__role">Fitness Coach · Phone · 41 ms</div>
+              </div>
+              <span class="t8-status-dot t8-status-dot--online">Online</span>
+            </div>
+            <div class="t8-staff-row">
+              <div class="t8-avatar" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.18);color:rgba(255,255,255,0.55)">XV</div>
+              <div>
+                <div class="t8-staff-row__name" style="opacity:0.6">Xavi Veciana</div>
+                <div class="t8-staff-row__role">Set-piece Coach · Tablet · idle</div>
+              </div>
+              <span class="t8-status-dot t8-status-dot--away">Away</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="t8-log">
+        <div class="t-section-strip">
+          <h2 style="font-size:var(--size-caption);letter-spacing:0.16em">Recent activity · second half</h2>
+          <span class="t-section-strip__meta">6 events · auto-purged at full-time</span>
+        </div>
+        <div class="t8-log__rows">
+
+          <div class="t8-log-row t8-log-row--confirm">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">73'47″</span></div>
+            <div>
+              <div class="t8-log-row__title">Confirmation received · Andrei Popa</div>
+              <div class="t8-log-row__sub">Acknowledged defensive reshuffle · executed on pitch at 73'52″</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--confirmed">Confirmed</span>
+          </div>
+
+          <div class="t8-log-row t8-log-row--event">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">73'42″</span></div>
+            <div>
+              <div class="t8-log-row__title">Tactic sent → Andrei Popa</div>
+              <div class="t8-log-row__sub">Defensive reshuffle on the left · captured via AR glasses · 3 vectors drawn</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--delivered">Delivered</span>
+          </div>
+
+          <div class="t8-log-row t8-log-row--alert">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">72'38″</span></div>
+            <div>
+              <div class="t8-log-row__title">Auto-routed alert → Andrei Popa, Florin Tudor</div>
+              <div class="t8-log-row__sub">Fatigue spike #6 Gavi · sub recommended · 71% threshold</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--ack">Ack</span>
+          </div>
+
+          <div class="t8-log-row t8-log-row--received">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">71'52″</span></div>
+            <div>
+              <div class="t8-log-row__title">Voice note from Andrei Popa</div>
+              <div class="t8-log-row__sub">"Player swap window opens in three minutes — they're tiring on the right."</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--delivered">Played</span>
+          </div>
+
+          <div class="t8-log-row t8-log-row--event">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">65'14″</span></div>
+            <div>
+              <div class="t8-log-row__title">Tactic sent → Andrei Popa</div>
+              <div class="t8-log-row__sub">High-press trigger reset · timed to opposition goal kick</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--confirmed">Confirmed</span>
+          </div>
+
+          <div class="t8-log-row t8-log-row--event">
+            <div class="t8-log-row__pip"></div>
+            <div class="t8-log-row__time"><span class="ts">52'08″</span></div>
+            <div>
+              <div class="t8-log-row__title">Tactic sent → Andrei Popa, Florin Tudor</div>
+              <div class="t8-log-row__sub">Initial second-half high-press window · 6-second trigger</div>
+            </div>
+            <span class="t8-log-row__status t8-log-row__status--confirmed">Confirmed</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="t-section-strip">
+        <span class="t-section-strip__meta">All messages auto-archive at full-time · GDPR-compliant retention</span>
+        <button class="btn btn-primary">
+          <svg class="icon"><use href="#icon-send"/></svg>
+          <span>Compose new alert</span>
+        </button>
+      </div>
+
+    </main>
+  </section>
+
+</div>
+
+<script src="tablet.js"></script>
+</body>
+</html>

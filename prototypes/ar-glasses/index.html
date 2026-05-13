@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COACHR — AR Glasses HUD</title>
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="ar.css">
+</head>
+<body class="device-page">
+
+<!-- SVG sprite -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11L12 4L21 11V21H3V11Z"/><path d="M10 21V14H14V21"/></symbol>
+  <symbol id="icon-send" viewBox="0 0 24 24"><polygon points="22 2 2 9 11 13 15 22 22 2"/><line x1="22" y1="2" x2="11" y2="13"/></symbol>
+  <symbol id="icon-pen" viewBox="0 0 24 24"><path d="M3 21L4 17L17 4L20 7L7 20L3 21Z"/></symbol>
+  <symbol id="icon-bolt" viewBox="0 0 24 24"><polygon points="13 2 4 14 11 14 10 22 20 10 13 10 13 2"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="4 12 9 17 20 6"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24"><polygon points="12 3 22 20 2 20"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17" x2="12" y2="17.5"/></symbol>
+  <symbol id="icon-sync" viewBox="0 0 24 24"><polyline points="21 3 21 9 15 9"/><polyline points="3 21 3 15 9 15"/><path d="M3.5 9a9 9 0 0 1 14.85-3.36L21 8"/><path d="M20.5 15a9 9 0 0 1-14.85 3.36L3 16"/></symbol>
+  <symbol id="icon-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="11"/><line x1="12" y1="12" x2="20" y2="6"/></symbol>
+  <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="5" y1="5" x2="7" y2="7"/><line x1="17" y1="17" x2="19" y2="19"/><line x1="5" y1="19" x2="7" y2="17"/><line x1="17" y1="7" x2="19" y2="5"/></symbol>
+  <symbol id="icon-signal" viewBox="0 0 24 24"><rect x="3" y="18" width="3" height="3"/><rect x="8" y="14" width="3" height="7"/><rect x="13" y="10" width="3" height="11"/><rect x="18" y="6" width="3" height="15"/></symbol>
+  <symbol id="icon-heat-map" viewBox="0 0 24 24"><rect x="0" y="0" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="0" width="6" height="6"/><rect x="18" y="0" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="18" y="9" width="6" height="6"/><rect x="0" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/><rect x="18" y="18" width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<header class="device-chrome">
+  <a href="../index.html">← Hub</a>
+  <span class="device-chrome__label">AR Glasses · 1920 × 1080 HUD</span>
+  <span class="device-chrome__current">A1</span>
+</header>
+
+<div class="viewport">
+
+  <!-- Shared "world view" backdrop, always visible -->
+  <div class="ar-world">
+    <div class="ar-world__horizon"></div>
+    <div class="ar-world__pitch">
+      <svg viewBox="0 0 1700 900" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stylized top-down pitch at very low contrast — what the coach sees -->
+        <g stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none">
+          <rect x="40" y="40" width="1620" height="820"/>
+          <line x1="850" y1="40" x2="850" y2="860"/>
+          <circle cx="850" cy="450" r="90"/>
+          <rect x="40" y="225" width="200" height="450"/>
+          <rect x="1460" y="225" width="200" height="450"/>
+          <rect x="40" y="335" width="80" height="230"/>
+          <rect x="1580" y="335" width="80" height="230"/>
+          <circle cx="160" cy="450" r="3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="1540" cy="450" r="3" fill="rgba(255,255,255,0.5)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="ar-vignette"></div>
+
+  <!-- ============================================================
+       A1 — Live Match View (passive HUD)
+       ============================================================ -->
+  <section class="screen is-active" id="a1">
+    <div class="hud-chip hud-chip--corner-tl">
+      <span class="hud-chip__label">FIXTURE</span>
+      <span>BAR 1 – 1 RMA</span>
+    </div>
+    <div class="hud-chip hud-chip--corner-tr">
+      <span class="hud-chip__label">MIN</span>
+      <span class="ts">73'</span>
+    </div>
+    <div class="hud-hint">
+      Double-tap <kbd>right rim</kbd> to open HUD
+    </div>
+    <!-- Invisible clickable hotspot covering the right edge -->
+    <button type="button" data-go="a2" aria-label="Double-tap right rim to open HUD" style="position:absolute;top:0;right:0;bottom:0;width:30%;cursor:pointer;z-index:5"></button>
+  </section>
+
+  <!-- ============================================================
+       A2 — AR HUD Menu
+       ============================================================ -->
+  <section class="screen" id="a2">
+    <button type="button" class="ar-back-chip" data-go="a1" aria-label="Dismiss menu and resume live HUD">← Resume HUD</button>
+    <div class="hud-chip hud-chip--top-center">
+      <span class="hud-chip__label">HUD</span>
+      <span>MAIN</span>
+    </div>
+
+    <div class="radial-menu">
+
+      <button type="button" class="radial-item radial-item--top is-target" data-go="a3" aria-label="Open Field Radar — current gaze target">
+        <div class="radial-item__icon-wrap" aria-hidden="true">
+          <svg class="icon icon-xxl"><use href="#icon-radar"/></svg>
+        </div>
+        <div class="radial-item__label">Field Radar</div>
+      </button>
+
+      <button type="button" class="radial-item radial-item--right" data-go="a7" aria-label="Open AI Diagnostics">
+        <div class="radial-item__icon-wrap" aria-hidden="true">
+          <svg class="icon icon-xxl"><use href="#icon-bolt"/></svg>
+        </div>
+        <div class="radial-item__label">AI Diagnostics</div>
+      </button>
+
+      <button type="button" class="radial-item radial-item--bottom" data-go="a8" aria-label="Open Sync Gallery">
+        <div class="radial-item__icon-wrap" aria-hidden="true">
+          <svg class="icon icon-xxl"><use href="#icon-sync"/></svg>
+        </div>
+        <div class="radial-item__label">Sync Gallery</div>
+      </button>
+
+      <button type="button" class="radial-item radial-item--left" data-go="a9" aria-label="Open HUD Settings">
+        <div class="radial-item__icon-wrap" aria-hidden="true">
+          <svg class="icon icon-xxl"><use href="#icon-settings"/></svg>
+        </div>
+        <div class="radial-item__label">HUD Settings</div>
+      </button>
+
+    </div>
+
+    <div class="hud-chip hud-chip--bottom-center" style="font-family:var(--font-body);font-size:var(--size-body);font-weight:400;border-color:rgba(255,255,255,0.3);background:rgba(10,10,10,0.4)">
+      <span class="hud-chip__label" style="color:rgba(255,255,255,0.55)">GAZE</span>
+      <span style="letter-spacing:0.1em">+ dwell 600ms to select</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A3 — Field Radar (Passing Lanes)
+       ============================================================ -->
+  <section class="screen" id="a3">
+    <button type="button" class="ar-back-chip" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+    <div class="hud-chip hud-chip--top-center">
+      <span class="hud-chip__label">FIELD RADAR</span>
+      <span>PASSING LANES</span>
+    </div>
+
+    <div class="field-overlay">
+      <svg viewBox="0 0 1500 800" xmlns="http://www.w3.org/2000/svg">
+        <!-- Live passing-lane arrows in Volt Yellow -->
+        <g stroke="#D4FF00" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85">
+          <!-- LB→CM -->
+          <path d="M 220 600 Q 320 480 420 380">
+            <animate attributeName="stroke-dasharray" values="0,500;500,0" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <polygon points="420,380 408,378 416,392" fill="#D4FF00"/>
+
+          <!-- CM→ST -->
+          <path d="M 420 380 Q 600 300 780 220"/>
+          <polygon points="780,220 768,222 778,235" fill="#D4FF00"/>
+
+          <!-- CM→RW -->
+          <path d="M 750 380 Q 950 320 1180 300"/>
+          <polygon points="1180,300 1168,295 1175,312" fill="#D4FF00"/>
+
+          <!-- CB→CDM -->
+          <path d="M 600 620 Q 600 540 600 460" opacity="0.6"/>
+          <polygon points="600,460 593,470 607,470" fill="#D4FF00" opacity="0.6"/>
+
+          <!-- RB→RW longer -->
+          <path d="M 1100 600 Q 1180 450 1220 320" opacity="0.7"/>
+          <polygon points="1220,320 1208,322 1218,335" fill="#D4FF00" opacity="0.7"/>
+        </g>
+
+        <!-- Player position rings (subtle) -->
+        <g fill="none" stroke="rgba(212,255,0,0.45)" stroke-width="2">
+          <circle cx="220" cy="600" r="22"/>
+          <circle cx="420" cy="380" r="22"/>
+          <circle cx="600" cy="620" r="22"/>
+          <circle cx="750" cy="380" r="22"/>
+          <circle cx="780" cy="220" r="22"/>
+          <circle cx="1180" cy="300" r="22"/>
+          <circle cx="1100" cy="600" r="22"/>
+          <circle cx="600" cy="460" r="22"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Defensive compactness alert chip -->
+    <div class="hud-chip hud-chip--corner-bl" style="background:rgba(255,69,0,0.15);border-color:var(--accent-alert);color:var(--text-primary)">
+      <svg class="icon icon-sm"><use href="#icon-alert"/></svg>
+      <span class="hud-chip__label" style="color:var(--accent-alert)">COMPACTNESS</span>
+      <span>LOW — 14.2 m line spread</span>
+    </div>
+
+    <!-- Heat Maps toggle -->
+    <div class="hud-chip hud-chip--corner-br" style="cursor:pointer" data-go="a6">
+      <svg class="icon icon-sm"><use href="#icon-heat-map"/></svg>
+      <span style="font-family:var(--font-body);font-weight:400;letter-spacing:0.04em">Heat Maps ⇄</span>
+    </div>
+
+    <!-- Invisible click zone in the defensive left area → A4 -->
+    <button type="button" data-go="a4" aria-label="Focus gaze on defensive line to inspect" style="position:absolute;top:55%;left:8%;width:30%;height:30%;cursor:pointer;z-index:5"></button>
+  </section>
+
+  <!-- ============================================================
+       A4 — Tactical Overlay (Error Detected)
+       ============================================================ -->
+  <section class="screen" id="a4">
+    <button type="button" class="ar-back-chip" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+    <div class="hud-chip hud-chip--top-center">
+      <span class="hud-chip__label">AI DIAGNOSTICS</span>
+      <span>SKELETON TRACKING</span>
+    </div>
+
+    <!-- Scattered player markers (small Volt Yellow triangles) -->
+    <div class="field-marker" style="top: 40%; left: 32%;"></div>
+    <div class="field-marker" style="top: 47%; left: 48%;"></div>
+    <div class="field-marker" style="top: 38%; left: 58%;"></div>
+    <div class="field-marker" style="top: 52%; left: 70%;"></div>
+    <div class="field-marker" style="top: 32%; left: 75%;"></div>
+    <div class="field-marker" style="top: 58%; left: 82%;"></div>
+
+    <!-- The error ring around #3 Balde -->
+    <div class="error-ring">
+      <div class="error-ring__circle-outer"></div>
+      <div class="error-ring__circle-inner"></div>
+      <div class="skeleton">
+        <svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#D4FF00" stroke-width="3" stroke-linecap="round" fill="none">
+            <!-- Head -->
+            <circle cx="30" cy="10" r="6" fill="#D4FF00"/>
+            <!-- Spine -->
+            <line x1="30" y1="16" x2="30" y2="50"/>
+            <!-- Arms -->
+            <line x1="30" y1="22" x2="12" y2="32"/>
+            <line x1="30" y1="22" x2="48" y2="32"/>
+            <!-- Legs -->
+            <line x1="30" y1="50" x2="16" y2="80"/>
+            <line x1="30" y1="50" x2="44" y2="80"/>
+            <!-- Joints -->
+            <circle cx="12" cy="32" r="3" fill="#D4FF00"/>
+            <circle cx="48" cy="32" r="3" fill="#D4FF00"/>
+            <circle cx="30" cy="50" r="3" fill="#D4FF00"/>
+            <circle cx="16" cy="80" r="3" fill="#D4FF00"/>
+            <circle cx="44" cy="80" r="3" fill="#D4FF00"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Error label chip pointing to the ring -->
+    <div class="hud-chip" style="top: 78%; left: 26%; transform: translateX(-50%); background: var(--accent-alert); border-color: var(--accent-alert); color: var(--text-on-accent);">
+      <svg class="icon icon-sm"><use href="#icon-alert"/></svg>
+      <span class="hud-chip__label" style="color:rgba(10,10,10,0.75)">POSITION ERROR</span>
+      <span style="font-family:var(--font-display);font-weight:700">#3 BALDE · LB OUT OF LINE</span>
+    </div>
+
+    <!-- AI insight chip -->
+    <div class="hud-chip hud-chip--corner-tr" style="background:rgba(10,10,10,0.7);border-color:rgba(212,255,0,0.5);max-width:340px">
+      <svg class="icon icon-sm" style="color:var(--accent-primary)"><use href="#icon-bolt"/></svg>
+      <div style="font-family:var(--font-body);font-weight:400;font-size:var(--size-caption);letter-spacing:0.04em">
+        <div style="color:var(--accent-primary);font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:2px">AI Insight · 94%</div>
+        <div style="opacity:0.75">Left flank exposed for the last 18s. Recommend defensive reshuffle.</div>
+      </div>
+    </div>
+
+    <div class="hud-hint">
+      <kbd>Long-press</kbd> right rim to capture this frame
+    </div>
+
+    <!-- Click anywhere to capture (representing long-press) -->
+    <button type="button" data-go="a5" aria-label="Long-press right rim to capture this frame" style="position:absolute;top:0;right:0;bottom:0;width:30%;cursor:pointer;z-index:5"></button>
+  </section>
+
+  <!-- ============================================================
+       A5 — Sync & Capture Confirmation (auto-advance to A1)
+       ============================================================ -->
+  <section class="screen" id="a5" data-auto="a1:2200">
+    <button type="button" class="ar-back-chip" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+    <div class="capture-card">
+      <svg class="icon icon-3xl capture-card__icon"><use href="#icon-check"/></svg>
+      <h2>Frame captured</h2>
+      <div class="capture-card__sub">
+        Synced to Tablet · <span class="ts">73'42″</span> · 1.4 MB
+      </div>
+      <div class="capture-thumb">
+        <!-- Tiny capture preview -->
+        <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none">
+            <rect x="4" y="4" width="192" height="112"/>
+            <line x1="100" y1="4" x2="100" y2="116"/>
+            <circle cx="100" cy="60" r="12"/>
+            <rect x="4" y="28" width="28" height="64"/>
+            <rect x="168" y="28" width="28" height="64"/>
+          </g>
+          <!-- Ringed player -->
+          <circle cx="35" cy="68" r="14" fill="none" stroke="#D4FF00" stroke-width="2"/>
+          <circle cx="35" cy="68" r="10" fill="none" stroke="#FF4500" stroke-width="2"/>
+          <circle cx="35" cy="68" r="3" fill="#D4FF00"/>
+        </svg>
+        <div class="capture-thumb__label">Defensive reshuffle · #3 Balde</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A6 — Heat Maps variant
+       ============================================================ -->
+  <section class="screen" id="a6">
+    <button type="button" class="ar-back-chip" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+    <div class="hud-chip hud-chip--top-center">
+      <span class="hud-chip__label">FIELD RADAR</span>
+      <span>HEAT MAPS</span>
+    </div>
+
+    <div class="heat-overlay">
+      <!-- Volt Yellow heat blobs -->
+      <div class="heat-blob" style="top: 20%; left: 18%; width: 240px; height: 240px; opacity: 0.45;"></div>
+      <div class="heat-blob" style="top: 38%; left: 32%; width: 280px; height: 280px; opacity: 0.55;"></div>
+      <div class="heat-blob" style="top: 28%; left: 50%; width: 260px; height: 260px; opacity: 0.45;"></div>
+      <div class="heat-blob" style="top: 50%; left: 22%; width: 200px; height: 200px; opacity: 0.35;"></div>
+      <div class="heat-blob" style="top: 42%; left: 60%; width: 200px; height: 200px; opacity: 0.30;"></div>
+      <div class="heat-blob" style="top: 60%; left: 70%; width: 180px; height: 180px; opacity: 0.25;"></div>
+      <div class="heat-blob" style="top: 18%; left: 75%; width: 160px; height: 160px; opacity: 0.20;"></div>
+      <div class="heat-blob" style="top: 70%; left: 12%; width: 160px; height: 160px; opacity: 0.18;"></div>
+    </div>
+
+    <!-- Compactness chip (different message — heat-map insight) -->
+    <div class="hud-chip hud-chip--corner-bl" style="background:rgba(212,255,0,0.15);border-color:var(--accent-primary)">
+      <svg class="icon icon-sm" style="color:var(--accent-primary)"><use href="#icon-bolt"/></svg>
+      <span class="hud-chip__label">HOTSPOT</span>
+      <span>Left half-space · 73% time-on-ball</span>
+    </div>
+
+    <!-- Passing Lanes toggle (back to A3) -->
+    <div class="hud-chip hud-chip--corner-br" style="cursor:pointer" data-go="a3">
+      <svg class="icon icon-sm"><use href="#icon-radar"/></svg>
+      <span style="font-family:var(--font-body);font-weight:400;letter-spacing:0.04em">Passing Lanes ⇄</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A7 — AI Diagnostics (live insight feed)
+       ============================================================ -->
+  <section class="screen" id="a7">
+    <div class="menu-panel">
+      <button type="button" class="menu-panel__back" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+      <div class="menu-panel__header" style="padding-top: var(--space-16)">
+        <div>
+          <div class="menu-panel__sub">AI Diagnostics</div>
+          <div class="menu-panel__title">Live insight feed</div>
+        </div>
+        <div style="text-align: right">
+          <div class="menu-panel__sub" style="color: rgba(255,255,255,0.5)">Last 12 min · 5 events</div>
+        </div>
+      </div>
+
+      <div class="feed-list">
+
+        <div class="feed-row feed-row--event">
+          <div class="feed-row__pip"></div>
+          <div>
+            <div class="feed-row__title">Tactic sent to staff</div>
+            <div class="feed-row__sub">Coach Munteanu → Andrei Popa · defensive reshuffle</div>
+          </div>
+          <div class="feed-row__time"><span class="ts">73'47″</span></div>
+          <div class="feed-row__arrow">→</div>
+        </div>
+
+        <div class="feed-row feed-row--alert">
+          <div class="feed-row__pip"></div>
+          <div>
+            <div class="feed-row__title">Position error · #3 Balde</div>
+            <div class="feed-row__sub">Left-back overcommitted forward · 94% confidence</div>
+          </div>
+          <div class="feed-row__time"><span class="ts">73'24″</span></div>
+          <div class="feed-row__arrow">→</div>
+        </div>
+
+        <div class="feed-row feed-row--insight">
+          <div class="feed-row__pip"></div>
+          <div>
+            <div class="feed-row__title">Defensive compactness dropped</div>
+            <div class="feed-row__sub">Line spread expanded 14.2 m over 18 seconds</div>
+          </div>
+          <div class="feed-row__time"><span class="ts">73'06″</span></div>
+          <div class="feed-row__arrow">→</div>
+        </div>
+
+        <div class="feed-row feed-row--alert">
+          <div class="feed-row__pip"></div>
+          <div>
+            <div class="feed-row__title">Fatigue spike · #6 Gavi</div>
+            <div class="feed-row__sub">Sprint output 71% of session baseline · sub recommended</div>
+          </div>
+          <div class="feed-row__time"><span class="ts">72'38″</span></div>
+          <div class="feed-row__arrow">→</div>
+        </div>
+
+        <div class="feed-row feed-row--insight">
+          <div class="feed-row__pip"></div>
+          <div>
+            <div class="feed-row__title">Passing network shift</div>
+            <div class="feed-row__sub">BAR pivot moved 8 m left · favouring Pedri channel</div>
+          </div>
+          <div class="feed-row__time"><span class="ts">71'52″</span></div>
+          <div class="feed-row__arrow">→</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A8 — Sync Gallery (captured frames grid)
+       ============================================================ -->
+  <section class="screen" id="a8">
+    <div class="menu-panel">
+      <button type="button" class="menu-panel__back" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+      <div class="menu-panel__header" style="padding-top: var(--space-16)">
+        <div>
+          <div class="menu-panel__sub">Sync Gallery</div>
+          <div class="menu-panel__title">Captured frames · this match</div>
+        </div>
+        <div style="text-align: right">
+          <div class="menu-panel__sub" style="color: rgba(255,255,255,0.5)">3 frames · 8.4 MB synced</div>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+
+        <div class="gallery-card gallery-card--latest">
+          <div class="gallery-thumb">
+            <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="rgba(255,255,255,0.45)" stroke-width="1" fill="none">
+                <rect x="4" y="4" width="192" height="112"/>
+                <line x1="100" y1="4" x2="100" y2="116"/>
+                <circle cx="100" cy="60" r="12"/>
+                <rect x="4" y="28" width="28" height="64"/>
+                <rect x="168" y="28" width="28" height="64"/>
+              </g>
+              <circle cx="35" cy="68" r="14" fill="none" stroke="#D4FF00" stroke-width="2"/>
+              <circle cx="35" cy="68" r="10" fill="none" stroke="#FF4500" stroke-width="2"/>
+              <circle cx="35" cy="68" r="3" fill="#D4FF00"/>
+            </svg>
+          </div>
+          <div class="gallery-card__meta">
+            <div>
+              <div class="gallery-card__time"><span class="ts">73'42″</span></div>
+              <div class="gallery-card__label">Defensive reshuffle · #3 Balde</div>
+            </div>
+            <span class="gallery-card__tag">Latest</span>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-thumb">
+            <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="rgba(255,255,255,0.45)" stroke-width="1" fill="none">
+                <rect x="4" y="4" width="192" height="112"/>
+                <line x1="100" y1="4" x2="100" y2="116"/>
+                <circle cx="100" cy="60" r="12"/>
+                <rect x="4" y="28" width="28" height="64"/>
+                <rect x="168" y="28" width="28" height="64"/>
+              </g>
+              <!-- Passing lane gap -->
+              <path d="M 60 90 Q 100 60 150 40" stroke="#D4FF00" stroke-width="2" fill="none"/>
+              <circle cx="60" cy="90" r="6" fill="#D4FF00"/>
+              <circle cx="150" cy="40" r="6" fill="none" stroke="#FF4500" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="gallery-card__meta">
+            <div>
+              <div class="gallery-card__time"><span class="ts">68'14″</span></div>
+              <div class="gallery-card__label">Passing lane gap · RW corridor</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-thumb">
+            <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="rgba(255,255,255,0.45)" stroke-width="1" fill="none">
+                <rect x="4" y="4" width="192" height="112"/>
+                <line x1="100" y1="4" x2="100" y2="116"/>
+                <circle cx="100" cy="60" r="12"/>
+                <rect x="4" y="28" width="28" height="64"/>
+                <rect x="168" y="28" width="28" height="64"/>
+              </g>
+              <!-- High-press trigger pattern -->
+              <g stroke="#D4FF00" stroke-width="2" fill="none">
+                <path d="M 100 30 L 80 50 M 100 30 L 120 50"/>
+                <path d="M 80 50 L 65 70"/>
+                <path d="M 120 50 L 135 70"/>
+              </g>
+              <circle cx="100" cy="30" r="5" fill="#D4FF00"/>
+            </svg>
+          </div>
+          <div class="gallery-card__meta">
+            <div>
+              <div class="gallery-card__time"><span class="ts">52'08″</span></div>
+              <div class="gallery-card__label">High-press trigger · 6-second window</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       A9 — HUD Settings
+       ============================================================ -->
+  <section class="screen" id="a9">
+    <div class="menu-panel" style="width: 800px">
+      <button type="button" class="menu-panel__back" data-go="a2" aria-label="Back to HUD Main">← HUD Main</button>
+      <div class="menu-panel__header" style="padding-top: var(--space-16)">
+        <div>
+          <div class="menu-panel__sub">HUD Settings</div>
+          <div class="menu-panel__title">Display & detection</div>
+        </div>
+        <div style="text-align: right">
+          <div class="menu-panel__sub" style="color: rgba(255,255,255,0.5)">Active profile · Match mode</div>
+        </div>
+      </div>
+
+      <div class="settings-list">
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Show passing lanes</div>
+            <div class="settings-row__sub">Volt Yellow arrows on the active build-up</div>
+          </div>
+          <div class="toggle is-on"></div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Show heat maps</div>
+            <div class="settings-row__sub">Spatial density overlay · prefer toggling per phase</div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Skeleton tracking opacity</div>
+            <div class="settings-row__sub">How prominent biomechanical overlays appear</div>
+          </div>
+          <div class="slider-readout">70%</div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Auto-capture on error detect</div>
+            <div class="settings-row__sub">Frame snapshots when AI flags ≥90% confidence</div>
+          </div>
+          <div class="toggle is-on"></div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Voice annotations</div>
+            <div class="settings-row__sub">Audio cues for sub recommendations · stadium noise penalised</div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Frame rate target</div>
+            <div class="settings-row__sub">Higher = smoother HUD · slight battery cost</div>
+          </div>
+          <div class="slider-readout">90<span style="font-size:11px;letter-spacing:0.06em;margin-left:4px;opacity:0.7">fps</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="ar.js"></script>
+</body>
+</html>

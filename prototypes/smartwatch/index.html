@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COACHR — Smartwatch Prototype</title>
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="watch.css">
+</head>
+<body class="device-page">
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11L12 4L21 11V21H3V11Z"/><path d="M10 21V14H14V21"/></symbol>
+  <symbol id="icon-send" viewBox="0 0 24 24"><polygon points="22 2 2 9 11 13 15 22 22 2"/><line x1="22" y1="2" x2="11" y2="13"/></symbol>
+  <symbol id="icon-bolt" viewBox="0 0 24 24"><polygon points="13 2 4 14 11 14 10 22 20 10 13 10 13 2"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="4 12 9 17 20 6"/></symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24"><polygon points="12 3 22 20 2 20"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17" x2="12" y2="17.5"/></symbol>
+  <symbol id="icon-signal" viewBox="0 0 24 24"><rect x="3" y="18" width="3" height="3"/><rect x="8" y="14" width="3" height="7"/><rect x="13" y="10" width="3" height="11"/><rect x="18" y="6" width="3" height="15"/></symbol>
+</svg>
+
+<header class="device-chrome">
+  <a href="../index.html">← Hub</a>
+  <span class="device-chrome__label">Smartwatch · 410 × 502</span>
+  <span class="device-chrome__current">W1</span>
+</header>
+
+<div class="viewport">
+
+  <!-- ============================================================
+       W1 — Match Status Home (auto-advances to W2)
+       ============================================================ -->
+  <section class="screen is-active" id="w1" data-auto="w2:2400">
+    <div class="w1-score">
+      BAR<span class="vs">1 – 1</span>RMA
+    </div>
+
+    <div class="w1-minute">
+      <div class="w1-minute__big">73'</div>
+      <div class="w1-minute__caption">2nd half · added 4</div>
+    </div>
+
+    <div class="w1-footer">
+      <span class="hr">
+        <span class="hr-dot"></span>HR 142
+      </span>
+      <span style="color:var(--accent-primary)">LTE ●●●●</span>
+    </div>
+
+    <!-- Tap zones for supporting screens -->
+    <button type="button" data-go="w5" aria-label="Open quick substitution swap" style="position:absolute;top:0;left:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
+    <button type="button" data-go="w6" aria-label="Open player alerts" style="position:absolute;top:0;right:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
+  </section>
+
+  <!-- ============================================================
+       W2 — Haptic Alert (full Volt Yellow flash)
+       ============================================================ -->
+  <section class="screen" id="w2">
+    <!-- Corner vibration sparks -->
+    <div class="w2-sparks">
+      <svg viewBox="0 0 410 502" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <g stroke="#0A0A0A" stroke-width="3" fill="none" stroke-linecap="round">
+          <!-- Top-left -->
+          <path d="M 4 60 Q 30 30 60 4"/>
+          <path d="M 4 90 Q 50 50 90 4"/>
+          <path d="M 4 120 Q 70 70 120 4"/>
+          <!-- Top-right -->
+          <path d="M 350 4 Q 380 30 406 60"/>
+          <path d="M 320 4 Q 360 50 406 90"/>
+          <path d="M 290 4 Q 340 70 406 120"/>
+          <!-- Bottom-left -->
+          <path d="M 4 380 Q 50 450 90 498"/>
+          <path d="M 4 410 Q 30 470 60 498"/>
+          <!-- Bottom-right -->
+          <path d="M 350 498 Q 380 470 406 440"/>
+          <path d="M 320 498 Q 360 450 406 410"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="w2-content">
+      <svg class="w2-bolt"><use href="#icon-bolt"/></svg>
+      <div class="w2-title">TACTIC<br>INCOMING</div>
+      <div class="w2-meta">
+        From <span class="ts">Coach Munteanu</span><br>· <span class="ts">73'45″</span> ·
+      </div>
+      <button class="w2-pill" data-go="w3">VIEW →</button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       W3 — Visual Tactic View (Substitution)
+       ============================================================ -->
+  <section class="screen" id="w3">
+    <div class="w3-header">SUBSTITUTION</div>
+    <div class="w3-meta">From <span class="ts">Coach Munteanu</span> · <span class="ts">73'45″</span></div>
+
+    <div class="w3-stack">
+      <div class="w3-row">
+        <span class="w3-row__label">IN</span>
+        <span class="w3-row__number">9</span>
+        <span class="w3-row__surname">Lewandowski</span>
+      </div>
+
+      <div class="w3-arrow">↓</div>
+
+      <div class="w3-row">
+        <span class="w3-row__label">OUT</span>
+        <span class="w3-row__number">10</span>
+        <span class="w3-row__surname">Ansu Fati</span>
+      </div>
+
+      <button class="w3-confirm" data-go="w4">
+        <svg class="icon" style="color:var(--text-on-accent)"><use href="#icon-check"/></svg>
+        <span>CONFIRM</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       W4 — Confirmation Sent (auto-advance to W1)
+       ============================================================ -->
+  <section class="screen" id="w4" data-auto="w1:2200">
+    <div class="w-centered">
+      <svg class="icon icon-3xl"><use href="#icon-check"/></svg>
+      <h2>Confirmed ✓</h2>
+      <p>To <span class="ts">Coach Munteanu</span> · <span class="ts">73'47″</span></p>
+      <p style="opacity:0.5;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;margin-top:var(--space-16)">Now applying on the pitch</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       W5 — Quick Swap Menu (supporting)
+       ============================================================ -->
+  <section class="screen" id="w5">
+    <div class="w3-header">QUICK SWAP</div>
+    <div class="w3-meta">Initiate from sideline</div>
+
+    <div class="w5-swap">
+      <div class="w5-swap-tile">
+        <div class="player-number player-number-active">9</div>
+        <div>
+          <div class="w5-swap-tile__role">IN · Striker</div>
+          <div class="w5-swap-tile__name">Lewandowski</div>
+        </div>
+      </div>
+
+      <div class="w5-swap-arrow">↕</div>
+
+      <div class="w5-swap-tile">
+        <div class="player-number">19</div>
+        <div>
+          <div class="w5-swap-tile__role">OUT · LW</div>
+          <div class="w5-swap-tile__name">Yamal</div>
+        </div>
+      </div>
+
+      <button class="w5-send" data-go="w4">
+        Send to Coach
+      </button>
+    </div>
+
+    <button type="button" class="w6-back" data-go="w1" aria-label="Back to match status">← Back</button>
+  </section>
+
+  <!-- ============================================================
+       W6 — Player Alert / LTE Status (supporting)
+       ============================================================ -->
+  <section class="screen w6" id="w6">
+    <div class="w6-alert-header">
+      <svg class="icon icon-sm"><use href="#icon-alert"/></svg>
+      <span>PLAYER ALERT</span>
+    </div>
+
+    <div class="w6-body">
+      <div class="player-number player-number-lg player-number-alert">6</div>
+      <div class="w6-player">Gavi</div>
+      <div class="w6-fatigue">71<span style="font-size:32px">%</span></div>
+      <div class="w6-meta">FATIGUE SPIKE · CONSIDER SUB · <span style="color:var(--accent-alert)">RED ZONE</span></div>
+    </div>
+
+    <div class="w6-lte">
+      <svg><use href="#icon-signal"/></svg>
+      LTE strength: 4/5 bars · 22ms latency
+    </div>
+
+    <button type="button" class="w6-back" data-go="w1" aria-label="Back to match status">← Back</button>
+  </section>
+
+</div>
+
+<script src="watch.js"></script>
+</body>
+</html>

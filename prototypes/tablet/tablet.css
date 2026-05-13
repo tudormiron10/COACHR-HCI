@@ -1,0 +1,743 @@
+/* COACHR — Tablet (1366×1024 landscape) layout */
+
+.device-page {
+  min-height: 100vh;
+  padding: var(--space-32) var(--space-24);
+  background:
+    radial-gradient(ellipse 600px 400px at top left, rgba(212, 255, 0, 0.025), transparent 60%),
+    var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.device-chrome {
+  width: 100%;
+  max-width: 1366px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.08em;
+}
+
+.device-chrome a {
+  color: var(--accent-primary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.device-chrome a:hover { color: var(--text-primary); }
+
+.device-chrome__label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-primary);
+}
+
+.device-chrome__current {
+  color: var(--accent-primary);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.viewport {
+  position: relative;
+  width: 1366px;
+  height: 1024px;
+  overflow: hidden;
+  border-radius: var(--radius-12);
+  background: var(--bg-primary);
+}
+
+/* Screen pattern — only the active screen is visible */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.screen.is-active {
+  display: flex;
+  animation: screen-in var(--t-base) var(--easing);
+}
+
+@keyframes screen-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ------- Score banner (shared on screens that show it) ------- */
+.t-screen-body {
+  flex: 1;
+  padding: var(--space-24) var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  overflow: hidden;
+}
+
+/* ------- T1 — Coach Home Dashboard ------- */
+
+.t1-synced {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-24);
+  padding: var(--space-24) var(--space-32);
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  border-radius: var(--radius-12);
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--easing);
+}
+.t1-synced:hover { transform: translateY(-2px); }
+
+.t1-synced .icon-xl { color: var(--text-on-accent); }
+
+.t1-synced__copy h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.t1-synced__copy p {
+  margin-top: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.75;
+}
+.t1-synced__cta {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.t1-tiles {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-16);
+}
+
+.t1-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-24);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--easing),
+              background-color var(--t-fast) var(--easing);
+}
+.t1-tile:hover {
+  background: #25252A;
+  transform: translateY(-2px);
+}
+
+.t1-tile .icon-xl {
+  color: var(--accent-primary);
+}
+
+.t1-tile__title {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.t1-tile__caption {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.6;
+}
+
+.t1-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.5;
+}
+
+/* ------- T3 — Interactive Passing Networks ------- */
+
+.t3-split {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-32);
+}
+
+.t3-pane__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-16);
+}
+
+.t3-pane__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-heading);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.t3-pane__meta {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  color: var(--accent-primary);
+  opacity: 0.85;
+  letter-spacing: 0.08em;
+}
+
+.t3-network {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  overflow: hidden;
+}
+.t3-network svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.t3-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.t3-pitch-wrap {
+  flex: 1;
+  position: relative;
+  border-radius: var(--radius-12);
+  overflow: hidden;
+  background: var(--bg-surface);
+  padding: var(--space-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.t3-pitch-wrap svg { width: 100%; height: 100%; max-height: 380px; }
+
+.t3-cta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.t3-pane-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.65;
+}
+
+/* ------- T4 — TacticPad Studio ------- */
+
+.t4-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+}
+
+.t4-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-8);
+  background: transparent;
+  color: var(--text-primary);
+  gap: var(--space-8);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--easing);
+}
+.t4-tool:hover { background: rgba(255, 255, 255, 0.05); }
+.t4-tool.is-active {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+}
+
+.t4-spacer { flex: 1; }
+
+.t4-stage {
+  flex: 1;
+  position: relative;
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  overflow: hidden;
+  padding: var(--space-24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.t4-stage svg { width: 100%; max-width: 1100px; max-height: 540px; }
+
+.t4-alert-chip {
+  position: absolute;
+  top: var(--space-24);
+  left: var(--space-24);
+  z-index: 2;
+}
+
+.t4-foot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.t4-formations {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.t4-formation {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-8);
+  background: var(--bg-surface);
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  border: var(--stroke) solid transparent;
+  cursor: pointer;
+}
+.t4-formation.is-active {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* ------- T5 — Transmitting ------- */
+
+.t-centered {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-24);
+  text-align: center;
+}
+
+.t-centered .icon-3xl { color: var(--accent-primary); }
+
+.t-centered h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 48px;
+  letter-spacing: -0.02em;
+}
+
+.t-centered p {
+  font-family: var(--font-body);
+  font-size: var(--size-heading);
+  opacity: 0.7;
+}
+
+.t-centered .ts { color: var(--accent-primary); }
+
+.transmit-bars {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+}
+.transmit-bars span {
+  display: block;
+  width: 8px;
+  height: 32px;
+  background: var(--accent-primary);
+  border-radius: 2px;
+  animation: transmit 1.2s ease-in-out infinite;
+}
+.transmit-bars span:nth-child(2) { animation-delay: 0.1s; }
+.transmit-bars span:nth-child(3) { animation-delay: 0.2s; }
+.transmit-bars span:nth-child(4) { animation-delay: 0.3s; }
+.transmit-bars span:nth-child(5) { animation-delay: 0.4s; }
+@keyframes transmit {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ------- T2 — Stats ------- */
+
+.t2-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-16);
+}
+
+.t2-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-24);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  min-height: 200px;
+}
+
+.t2-card__label {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+.t2-card__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 48px;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.t2-card__delta {
+  margin-top: auto;
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.55;
+  letter-spacing: 0.04em;
+}
+
+/* ------- T7 — Wellness ------- */
+
+.t7-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.t7-row {
+  display: grid;
+  grid-template-columns: 64px 1.4fr 1fr 1.2fr 1fr 1fr auto;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-24);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  min-height: 88px;
+}
+
+.t7-row__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-heading);
+}
+.t7-row__role {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.6;
+}
+.t7-row__metric-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.5;
+}
+.t7-row__metric-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.t7-row--alert .t7-row__metric-value { color: var(--accent-alert); }
+
+/* ------- Common: section header strip ------- */
+.t-section-strip {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.t-section-strip h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.t-section-strip__meta {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.55;
+}
+
+/* Match minute pulse used in score banner */
+.banner-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  margin-right: var(--space-8);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ------- T8 — Communication (Staff Relay) ------- */
+
+.t8-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+}
+
+.t8-card {
+  padding: var(--space-24);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.t8-card__label {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-primary);
+}
+
+.t8-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+
+.t8-channel-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+}
+
+.t8-channel-details__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  opacity: 0.7;
+}
+
+.t8-channel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.t8-staff-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.t8-staff-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.t8-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(212, 255, 0, 0.12);
+  border: var(--stroke) solid var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent-primary);
+  letter-spacing: 0.02em;
+}
+
+.t8-staff-row__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-body);
+}
+
+.t8-staff-row__role {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.55;
+  margin-top: 2px;
+}
+
+.t8-status-dot {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.t8-status-dot--online {
+  background: rgba(212, 255, 0, 0.15);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+.t8-status-dot--away {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.t8-log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  min-height: 0;
+}
+
+.t8-log__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  overflow-y: auto;
+}
+
+.t8-log-row {
+  display: grid;
+  grid-template-columns: 12px 96px 1fr auto;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-12) var(--space-24);
+  background: var(--bg-surface);
+  border-radius: var(--radius-8);
+}
+
+.t8-log-row__pip {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.t8-log-row--confirm .t8-log-row__pip { background: var(--accent-primary); }
+.t8-log-row--alert .t8-log-row__pip { background: var(--accent-alert); }
+.t8-log-row--event .t8-log-row__pip { background: rgba(255, 255, 255, 0.5); }
+.t8-log-row--received .t8-log-row__pip {
+  background: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+.t8-log-row__time {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-heading);
+  color: var(--accent-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.t8-log-row__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-body);
+}
+
+.t8-log-row__sub {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  opacity: 0.55;
+  margin-top: 2px;
+}
+
+.t8-log-row__status {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.t8-log-row__status--confirmed {
+  background: rgba(212, 255, 0, 0.15);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+.t8-log-row__status--delivered {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+}
+.t8-log-row__status--ack {
+  background: rgba(255, 69, 0, 0.15);
+  color: var(--accent-alert);
+  border: 1px solid var(--accent-alert);
+}
+
+/* Back-to-dashboard affordance — replaces league label on non-home screens */
+.score-banner__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  cursor: pointer;
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-pill);
+  border: var(--stroke) solid transparent;
+  transition: border-color var(--t-fast) var(--easing),
+              color var(--t-fast) var(--easing);
+}
+.score-banner__back:hover {
+  border-color: var(--accent-primary);
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

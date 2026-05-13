@@ -1,0 +1,238 @@
+/* COACHR — Component patterns
+ * Mirrors the Figma component library defined in spec §4.5
+ */
+
+/* ---------- BUTTONS ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform var(--t-fast) var(--easing),
+              background-color var(--t-fast) var(--easing),
+              color var(--t-fast) var(--easing);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+}
+.btn-primary:hover { background: #BEEC00; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: var(--stroke) solid var(--text-primary);
+}
+.btn-secondary:hover {
+  background: var(--text-primary);
+  color: var(--text-on-accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  padding: var(--space-8) var(--space-12);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+  font-size: var(--size-heading);
+}
+.btn-ghost:hover { color: var(--accent-primary); }
+
+.btn-inverse {
+  background: var(--text-on-accent);
+  color: var(--accent-primary);
+}
+.btn-inverse:hover { background: #1a1a1a; }
+
+/* ---------- CHIPS ---------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chip-alert {
+  background: var(--accent-alert);
+  color: var(--text-on-accent);
+}
+.chip-alert .icon { color: var(--text-on-accent); }
+
+.chip-confirm {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+}
+
+.chip-frosted {
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: var(--stroke) solid var(--accent-primary);
+  color: var(--text-primary);
+  padding: var(--space-8) var(--space-16);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.chip-frosted .ts { color: var(--accent-primary); }
+
+/* Score chip variant — used across all 3 devices in the score banner */
+.score-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-12);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-pill);
+  border: var(--stroke) solid var(--accent-primary);
+  background: rgba(10, 10, 10, 0.7);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- PLAYER NUMBER ---------- */
+
+.player-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: var(--stroke) solid var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.player-number-lg { width: 72px; height: 72px; font-size: 28px; }
+.player-number-sm { width: 32px; height: 32px; font-size: 14px; }
+.player-number-xs { width: 24px; height: 24px; font-size: 11px; }
+
+/* Active variant — highlighted in network or focused on by AI overlay */
+.player-number-active {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  border-color: var(--accent-primary);
+}
+
+/* Alert variant — fatigue spike, position error */
+.player-number-alert {
+  border-color: var(--accent-alert);
+  color: var(--accent-alert);
+}
+
+/* ---------- CARDS ---------- */
+
+.card-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+}
+
+.card-stat__label {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  color: var(--text-primary);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.card-stat__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-title);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--lh-title);
+}
+
+.card-stat__delta {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  opacity: 0.6;
+}
+
+/* Surface card — generic dark surface with rounded corners */
+.surface {
+  background: var(--bg-surface);
+  border-radius: var(--radius-12);
+}
+
+/* ---------- SCORE BANNER ---------- */
+
+.score-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding: 0 var(--space-32);
+  background: var(--bg-surface);
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.score-banner__league {
+  font-family: var(--font-body);
+  font-size: var(--size-caption);
+  color: var(--accent-primary);
+  letter-spacing: 0.1em;
+}
+
+.score-banner__teams {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-16);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-banner__teams .vs {
+  color: var(--accent-primary);
+}
+
+.score-banner__minute {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-primary);
+  letter-spacing: -0.02em;
+}

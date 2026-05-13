@@ -1,0 +1,70 @@
+/* COACHR — Design Tokens
+ * Source of truth: docs/superpowers/specs/2026-05-13-coachr-prototypes-design.md §4
+ * Style guide:     Ghid de Stil Vizual - Ecosistem Tactic Sportiv V3.md
+ *
+ * Carbon Black is the transparency sentinel on AR Glasses — do not substitute
+ * any near-black. Volt Yellow is a spotlight, not wallpaper.
+ */
+
+:root {
+  /* Raw colour tokens */
+  --color-carbon-black:  #0A0A0A;
+  --color-athletic-grey: #1C1C1E;
+  --color-volt-yellow:   #D4FF00;
+  --color-energy-orange: #FF4500;
+  --color-pure-white:    #FFFFFF;
+
+  /* Semantic colour roles */
+  --bg-primary:     var(--color-carbon-black);
+  --bg-surface:     var(--color-athletic-grey);
+  --accent-primary: var(--color-volt-yellow);
+  --accent-alert:   var(--color-energy-orange);
+  --text-primary:   var(--color-pure-white);
+  --text-on-accent: var(--color-carbon-black);
+
+  /* Spacing — 4px base scale (per CoachNow reference in lit review) */
+  --space-4:  4px;
+  --space-8:  8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+
+  /* Radius */
+  --radius-4:    4px;
+  --radius-8:    8px;
+  --radius-12:   12px;
+  --radius-pill: 999px;
+
+  /* Type families */
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-body:    'Atkinson Hyperlegible', system-ui, sans-serif;
+
+  /* Type scale — sizes from spec §4.4, with one display-xl extension for hero numerals */
+  --size-display-xl: 120px;
+  --size-display:    56px;
+  --size-title:      32px;
+  --size-heading:    20px;
+  --size-body:       16px;
+  --size-caption:    12px;
+
+  --lh-display-xl: 1;
+  --lh-display:    1.14;
+  --lh-title:      1.25;
+  --lh-heading:    1.4;
+  --lh-body:       1.5;
+  --lh-caption:    1.33;
+
+  /* Strokes & touch */
+  --stroke:    2px;
+  --touch-min: 48px;
+
+  /* Motion — fast, matches style-guide "flat UI for fast visual processing" */
+  --t-fast:  150ms;
+  --t-base:  200ms;
+  --t-slow:  300ms;
+  --easing:  cubic-bezier(0.4, 0, 0.2, 1);
+}

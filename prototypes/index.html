@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COACHR — Tactical Football Ecosystem</title>
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 800px 600px at top right, rgba(212, 255, 0, 0.05), transparent 70%),
+        repeating-linear-gradient(0deg, transparent 0, transparent 47px, rgba(255, 255, 255, 0.025) 47px, rgba(255, 255, 255, 0.025) 48px),
+        var(--bg-primary);
+      padding: var(--space-48);
+      display: flex;
+      flex-direction: column;
+    }
+    .hub {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: var(--space-64);
+      flex: 1;
+    }
+    .hub-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-start;
+      gap: var(--space-48);
+    }
+    .wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 112px;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+    }
+    .wordmark span {
+      color: var(--accent-primary);
+    }
+    .tagline {
+      max-width: 360px;
+      margin-top: var(--space-24);
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      line-height: var(--lh-body);
+      opacity: 0.7;
+    }
+    .match-state {
+      text-align: right;
+    }
+    .match-state__label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-primary);
+      margin-bottom: var(--space-12);
+    }
+    .match-state__score {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 52px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .match-state__score .vs {
+      color: var(--accent-primary);
+      margin: 0 var(--space-12);
+    }
+    .match-state__meta {
+      margin-top: var(--space-12);
+      font-family: var(--font-body);
+      font-size: var(--size-caption);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      margin-right: var(--space-8);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .devices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24);
+    }
+    .device-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-32);
+      background: var(--bg-surface);
+      border-radius: var(--radius-12);
+      transition: transform var(--t-base) var(--easing),
+                  background-color var(--t-base) var(--easing);
+      min-height: 360px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .device-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: var(--stroke) solid transparent;
+      border-radius: inherit;
+      transition: border-color var(--t-base) var(--easing);
+      pointer-events: none;
+    }
+    .device-card:hover {
+      transform: translateY(-4px);
+      background: #232328;
+    }
+    .device-card:hover::after {
+      border-color: var(--accent-primary);
+    }
+    .device-card__number {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 144px;
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+      color: var(--accent-primary);
+      opacity: 0.12;
+      position: absolute;
+      top: 0;
+      right: var(--space-16);
+      pointer-events: none;
+      user-select: none;
+    }
+    .device-card__category {
+      font-family: var(--font-body);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-primary);
+      position: relative;
+    }
+    .device-card__name {
+      margin-top: var(--space-12);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+    .device-card__role {
+      margin-top: var(--space-16);
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      line-height: var(--lh-body);
+      opacity: 0.7;
+      max-width: 340px;
+      position: relative;
+    }
+    .device-card__moment {
+      margin-top: auto;
+      padding-top: var(--space-24);
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      font-family: var(--font-body);
+      font-size: var(--size-caption);
+      opacity: 0.55;
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+    .device-card__moment .ts {
+      color: var(--accent-primary);
+      opacity: 1;
+      font-size: var(--size-body);
+    }
+    .open-arrow {
+      margin-left: auto;
+      color: var(--accent-primary);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--size-heading);
+      transition: transform var(--t-base) var(--easing);
+    }
+    .device-card:hover .open-arrow {
+      transform: translateX(4px);
+    }
+    .hub-footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-32);
+      padding-top: var(--space-32);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-meta {
+      font-family: var(--font-body);
+      font-size: var(--size-caption);
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .footer-meta strong {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-family: var(--font-display);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-bottom: var(--space-8);
+    }
+
+    @media (max-width: 960px) {
+      .hub-header { grid-template-columns: 1fr; }
+      .match-state { text-align: left; }
+      .devices { grid-template-columns: 1fr; }
+      .wordmark { font-size: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="hub">
+
+    <header class="hub-header">
+      <div>
+        <h1 class="wordmark">COACH<span>R</span></h1>
+        <p class="tagline">A tactical ecosystem built for the head coach who reads the match in glare, noise, and ninety seconds of decision time.</p>
+      </div>
+      <div class="match-state">
+        <div class="match-state__label"><span class="pulse-dot"></span>Live demo fixture</div>
+        <div class="match-state__score">BAR<span class="vs">1 – 1</span>RMA</div>
+        <div class="match-state__meta">LaLiga · El Clásico · 73' · Spotify Camp Nou</div>
+      </div>
+    </header>
+
+    <section class="devices">
+      <a class="device-card" href="tablet/index.html">
+        <div class="device-card__number">01</div>
+        <div class="device-card__category">Tablet · Touchline</div>
+        <h2 class="device-card__name">Central Data Hub</h2>
+        <p class="device-card__role">Real-time stats, passing networks, the TacticPad. Where Coach Munteanu authors the next move.</p>
+        <div class="device-card__moment">
+          <span class="ts">73'42″</span> — synced tactic arrives
+          <span class="open-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="device-card" href="ar-glasses/index.html">
+        <div class="device-card__number">02</div>
+        <div class="device-card__category">AR Glasses · Live HUD</div>
+        <h2 class="device-card__name">Field Radar</h2>
+        <p class="device-card__role">Tactical overlays on the pitch in front of the coach. Passing lanes, heat maps, positioning errors caught in real time.</p>
+        <div class="device-card__moment">
+          <span class="ts">73'42″</span> — frame captured
+          <span class="open-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="device-card" href="smartwatch/index.html">
+        <div class="device-card__number">03</div>
+        <div class="device-card__category">Smartwatch · Sideline</div>
+        <h2 class="device-card__name">Haptic Relay</h2>
+        <p class="device-card__role">A glanceable channel for the assistant, Andrei. Stadium noise won't reach him; vibration and one bright pill will.</p>
+        <div class="device-card__moment">
+          <span class="ts">73'47″</span> — confirmation returned
+          <span class="open-arrow">→</span>
+        </div>
+      </a>
+    </section>
+
+    <footer class="hub-footer">
+      <div class="footer-meta">
+        <strong>Personas</strong>
+        Victor Munteanu — Head Coach, UEFA Pro, 47 (tablet + AR)<br>
+        Andrei Popa — Assistant Coach, 37 (smartwatch)<br>
+        Adrian Cristea — Captain, 24 (consumes wellness data)
+      </div>
+      <div class="footer-meta">
+        <strong>Project</strong>
+        HCI high-fidelity clickable prototypes — deliverable #5<br>
+        Style guide: Carbon Black + Volt Yellow · Montserrat + Atkinson Hyperlegible<br>
+        Spec at <span style="color: var(--accent-primary)">docs/superpowers/specs/2026-05-13-coachr-prototypes-design.md</span>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>
