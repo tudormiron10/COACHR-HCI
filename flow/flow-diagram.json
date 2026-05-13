@@ -1,0 +1,102 @@
+[
+  {
+    "id": "node-1778683725747",
+    "type": "node",
+    "screen": "Live Match View",
+    "actions": [
+      {
+        "id": "action-1778683725747",
+        "label": "Double-tap pe rama dreaptă",
+        "connections": [
+          {
+            "targetId": "node-1778683895325",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 151,
+    "y": 41
+  },
+  {
+    "id": "node-1778683895325",
+    "type": "node",
+    "screen": "AR HUD Menu",
+    "actions": [
+      {
+        "id": "action-1778683895325",
+        "label": "Privește iconița \"Field Radar\" și validează",
+        "connections": [
+          {
+            "targetId": "node-1778683926448",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 622,
+    "y": 92
+  },
+  {
+    "id": "node-1778683926448",
+    "type": "node",
+    "screen": "Field Radar Mode Active",
+    "actions": [
+      {
+        "id": "action-1778683926448",
+        "label": "Focalizează privirea pe linia de apărare",
+        "connections": [
+          {
+            "targetId": "node-1778684025589",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 199,
+    "y": 374
+  },
+  {
+    "id": "node-1778684025589",
+    "type": "node",
+    "screen": "Tactical Overlay",
+    "actions": [
+      {
+        "id": "action-1778684025589",
+        "label": "Atingere lungă pentru captură",
+        "connections": [
+          {
+            "targetId": "node-1778684065522",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 620,
+    "y": 533
+  },
+  {
+    "id": "node-1778684065522",
+    "type": "node",
+    "screen": "Sync & Alert Confirmation",
+    "actions": [
+      {
+        "id": "action-1778684065522",
+        "label": "Revine la vizualizarea normală",
+        "connections": [
+          {
+            "targetId": "node-1778683725747",
+            "fromPosition": "left",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 32,
+    "y": 682
+  }
+]

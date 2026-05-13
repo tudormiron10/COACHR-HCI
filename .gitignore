@@ -1,0 +1,21 @@
+# Ignoră setările și fișierele specifice Gemini
+.gemini/
+.gemini
+
+# Ignoră fișierele generate de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Ignoră fișierele generate de macOS (în caz că va lucra cineva de pe Mac pe acest repo)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dacă folosești Node.js pe viitor, decomentează linia de mai jos
+# node_modules/
+
+# Dacă ai fișiere cu variabile de mediu/secrete (recomandat să le ignori)
+.env
+.env.local

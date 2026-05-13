@@ -1,0 +1,82 @@
+[
+  {
+    "id": "node-1778684447138",
+    "type": "node",
+    "screen": "Standby",
+    "actions": [
+      {
+        "id": "action-1778684447138",
+        "label": "Recepționează pachetul de date tactice via rețea privată LTE",
+        "connections": [
+          {
+            "targetId": "node-1778684480032",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 448,
+    "y": 68
+  },
+  {
+    "id": "node-1778684480032",
+    "type": "node",
+    "screen": "Haptic Alert",
+    "actions": [
+      {
+        "id": "action-1778684480032",
+        "label": "Ceasul vibrează puternic; Andrei ridică încheietura",
+        "connections": [
+          {
+            "targetId": "node-1778684519973",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 832,
+    "y": 252
+  },
+  {
+    "id": "node-1778684519973",
+    "type": "node",
+    "screen": "Minimalist Tactic View",
+    "actions": [
+      {
+        "id": "action-1778684519973",
+        "label": "Analizează schema vizuală rapidă și apasă pe bifa verde de \"Confirmare\"",
+        "connections": [
+          {
+            "targetId": "node-1778684621053",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 442,
+    "y": 382
+  },
+  {
+    "id": "node-1778684621053",
+    "type": "node",
+    "screen": "Confirmation Sent",
+    "actions": [
+      {
+        "id": "action-1778684621053",
+        "label": "Coboară încheietura",
+        "connections": [
+          {
+            "targetId": "node-1778684447138",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 23,
+    "y": 304
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "node-1778684238852",
+    "type": "node",
+    "screen": "Central Data Hub",
+    "actions": [
+      {
+        "id": "action-1778684238852",
+        "label": "Atinge secvența tactică proaspăt sincronizată de pe ochelari",
+        "connections": [
+          {
+            "targetId": "node-1778684256652",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 187,
+    "y": 46
+  },
+  {
+    "id": "node-1778684256652",
+    "type": "node",
+    "screen": "Interactive Passing Networks",
+    "actions": [
+      {
+        "id": "action-1778684256652",
+        "label": "Selectează instrumentul de desen din meniul lateral",
+        "connections": [
+          {
+            "targetId": "node-1778684294452",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 574,
+    "y": 165
+  },
+  {
+    "id": "node-1778684294452",
+    "type": "node",
+    "screen": "TacticalPad Drawing Mode",
+    "actions": [
+      {
+        "id": "action-1778684294452",
+        "label": "Desenează tactica cu degetul și apasă \"Send to Staff\"",
+        "connections": [
+          {
+            "targetId": "node-1778684320783",
+            "fromPosition": "right",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 170,
+    "y": 361
+  },
+  {
+    "id": "node-1778684320783",
+    "type": "node",
+    "screen": "Transmitting via Private LTE",
+    "actions": [
+      {
+        "id": "action-1778684320783",
+        "label": "Așteaptă confirmarea",
+        "connections": [
+          {
+            "targetId": "node-1778684356280",
+            "fromPosition": "left",
+            "toPosition": "right"
+          }
+        ]
+      }
+    ],
+    "x": 600,
+    "y": 548
+  },
+  {
+    "id": "node-1778684356280",
+    "type": "node",
+    "screen": "Success / Delivered Status",
+    "actions": [
+      {
+        "id": "action-1778684356280",
+        "label": "Apasă pictograma \"Home\"",
+        "connections": [
+          {
+            "targetId": "node-1778684238852",
+            "fromPosition": "left",
+            "toPosition": "left"
+          }
+        ]
+      }
+    ],
+    "x": 46,
+    "y": 669
+  }
+]
