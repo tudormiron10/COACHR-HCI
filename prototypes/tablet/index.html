@@ -38,6 +38,8 @@
   <span class="device-chrome__current">T1</span>
 </header>
 
+<div class="device-body">
+  <span class="device-body__indicator" aria-hidden="true"></span>
 <div class="viewport">
 
   <!-- ============================================================
@@ -163,7 +165,7 @@
 
         <div>
           <div class="t3-pane__header">
-            <div class="t3-pane__title">Posesie Live · BAR</div>
+            <div class="t3-pane__title">Passing Network · BAR</div>
             <div class="t3-pane__meta">LAST 15 MIN · 64% POSSESSION</div>
           </div>
           <div class="t3-network">
@@ -174,15 +176,30 @@
                 </pattern>
               </defs>
               <rect width="600" height="700" fill="url(#grid-net)"/>
-              <!-- attacking direction indicator -->
-              <text x="300" y="40" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Atkinson Hyperlegible" font-size="11" letter-spacing="2">↑ ATTACKING DIRECTION</text>
+
+              <!-- Pitch outline backdrop — very subtle, grounds the network as a tactical view -->
+              <g stroke="rgba(255,255,255,0.09)" stroke-width="2" fill="none">
+                <rect x="40" y="30" width="520" height="640" rx="2"/>
+                <line x1="40" y1="350" x2="560" y2="350"/>
+                <circle cx="300" cy="350" r="64"/>
+                <circle cx="300" cy="350" r="3" fill="rgba(255,255,255,0.12)" stroke="none"/>
+                <rect x="180" y="30" width="240" height="110"/>
+                <rect x="180" y="560" width="240" height="110"/>
+                <rect x="240" y="30" width="120" height="50"/>
+                <rect x="240" y="620" width="120" height="50"/>
+              </g>
+
+              <!-- Attacking direction indicator -->
+              <g>
+                <text x="300" y="22" text-anchor="middle" fill="rgba(212,255,0,0.7)" font-family="Montserrat" font-weight="700" font-size="11" letter-spacing="3">↑ ATTACKING</text>
+              </g>
 
               <!-- Connections (lines between player nodes) -->
               <!-- Backline -->
-              <line x1="120" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.6"/>
-              <line x1="480" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.6"/>
-              <!-- Pivot -->
-              <line x1="300" y1="500" x2="300" y2="380" stroke="#D4FF00" stroke-width="4" opacity="0.9"/>
+              <line x1="120" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.65"/>
+              <line x1="480" y1="380" x2="300" y2="500" stroke="white" stroke-width="3" opacity="0.65"/>
+              <!-- Pivot (strongest connection: Araújo↔De Jong = the build-up axis) -->
+              <line x1="300" y1="500" x2="300" y2="380" stroke="#D4FF00" stroke-width="4" opacity="0.95"/>
               <line x1="300" y1="380" x2="200" y2="280" stroke="white" stroke-width="3" opacity="0.85"/>
               <line x1="300" y1="380" x2="400" y2="280" stroke="white" stroke-width="3" opacity="0.85"/>
               <!-- CMs to wingers -->
@@ -199,72 +216,89 @@
 
               <!-- Player nodes -->
               <g font-family="Montserrat" font-weight="700" font-size="18" fill="white">
-                <!-- GK (not shown — out of frame) -->
 
-                <!-- LB #3 Balde — error indicator -->
+                <!-- LB #3 Balde — position-error indicator -->
                 <g transform="translate(120,380)">
-                  <circle r="26" fill="#0A0A0A" stroke="#FF4500" stroke-width="2"/>
+                  <circle r="26" fill="#0A0A0A" stroke="#FF4500" stroke-width="2.5"/>
                   <text text-anchor="middle" dominant-baseline="central" fill="#FF4500">3</text>
                 </g>
-                <text x="120" y="425" text-anchor="middle" font-size="11" fill="#FF4500" font-family="Atkinson Hyperlegible" font-weight="400">BALDE ⚠</text>
+                <text x="120" y="427" text-anchor="middle" font-size="12" fill="#FF4500" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">BALDE  ⚠</text>
 
                 <!-- CB #4 Araújo (captain, highlighted hub) -->
                 <g transform="translate(300,500)">
-                  <circle r="28" fill="#D4FF00" stroke="#D4FF00" stroke-width="2"/>
+                  <circle r="30" fill="#D4FF00" stroke="#D4FF00" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central" fill="#0A0A0A">4</text>
                 </g>
-                <text x="300" y="546" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.7)" font-family="Atkinson Hyperlegible" font-weight="400">ARAÚJO (C)</text>
+                <text x="300" y="551" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.95)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">ARAÚJO</text>
+                <g transform="translate(348,547)">
+                  <circle r="10" fill="#D4FF00"/>
+                  <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="11" fill="#0A0A0A">C</text>
+                </g>
 
                 <!-- RB #20 Sergi Roberto -->
                 <g transform="translate(480,380)">
                   <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">20</text>
                 </g>
-                <text x="480" y="421" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">S. ROBERTO</text>
+                <text x="480" y="424" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">S. ROBERTO</text>
 
                 <!-- CDM #21 De Jong -->
                 <g transform="translate(300,380)">
                   <circle r="26" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">21</text>
                 </g>
-                <text x="300" y="424" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">DE JONG</text>
+                <text x="300" y="427" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">DE JONG</text>
 
                 <!-- LCM #8 Pedri -->
                 <g transform="translate(200,280)">
                   <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">8</text>
                 </g>
-                <text x="200" y="320" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">PEDRI</text>
+                <text x="200" y="323" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">PEDRI</text>
 
                 <!-- RCM #6 Gavi (fatigue) -->
                 <g transform="translate(400,280)">
-                  <circle r="24" fill="#0A0A0A" stroke="#FF4500" stroke-width="2"/>
+                  <circle r="24" fill="#0A0A0A" stroke="#FF4500" stroke-width="2.5"/>
                   <text text-anchor="middle" dominant-baseline="central" fill="#FF4500">6</text>
                 </g>
-                <text x="400" y="320" text-anchor="middle" font-size="11" fill="#FF4500" font-family="Atkinson Hyperlegible">GAVI ⚠</text>
+                <text x="400" y="323" text-anchor="middle" font-size="12" fill="#FF4500" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">GAVI  ⚠</text>
 
                 <!-- LW #10 Ansu Fati -->
                 <g transform="translate(140,180)">
                   <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">10</text>
                 </g>
-                <text x="140" y="220" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">A. FATI</text>
+                <text x="140" y="223" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">A. FATI</text>
 
                 <!-- RW #11 Raphinha -->
                 <g transform="translate(460,180)">
                   <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">11</text>
                 </g>
-                <text x="460" y="220" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">RAPHINHA</text>
+                <text x="460" y="223" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">RAPHINHA</text>
 
                 <!-- ST #19 Yamal -->
                 <g transform="translate(300,100)">
                   <circle r="24" fill="#0A0A0A" stroke="white" stroke-width="2"/>
                   <text text-anchor="middle" dominant-baseline="central">19</text>
                 </g>
-                <text x="300" y="60" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)" font-family="Atkinson Hyperlegible">YAMAL</text>
+                <text x="300" y="58" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.85)" font-family="Atkinson Hyperlegible" font-weight="700" letter-spacing="0.5">YAMAL</text>
               </g>
             </svg>
+
+            <!-- Legend explaining the line-weight encoding -->
+            <div class="t3-network__legend">
+              <div class="t3-legend-item"><span class="t3-legend-line t3-legend-line--strong"></span><span>8+ passes</span></div>
+              <div class="t3-legend-item"><span class="t3-legend-line t3-legend-line--mid"></span><span>5–7</span></div>
+              <div class="t3-legend-item"><span class="t3-legend-line t3-legend-line--weak"></span><span>1–4</span></div>
+            </div>
+
+            <!-- Network insight summary -->
+            <div class="t3-network__insight">
+              <span>Network hub ·</span>
+              <strong>#4 Araújo</strong>
+              <span>· 47 passes · 91% complete</span>
+            </div>
           </div>
         </div>
 
@@ -275,10 +309,17 @@
           </div>
 
           <div class="t3-pitch-wrap">
-            <!-- Mini pitch with the captured error zone highlighted -->
+            <!-- Captured tactical moment — defensive line shown with Balde out of position -->
             <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arrow-recommend" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#D4FF00"/>
+                </marker>
+              </defs>
+
               <!-- Pitch background -->
               <rect width="800" height="500" fill="#1C1C1E"/>
+
               <!-- Markings -->
               <g stroke="white" stroke-width="2" fill="none">
                 <rect x="20" y="20" width="760" height="460"/>
@@ -289,10 +330,63 @@
                 <rect x="20" y="190" width="50" height="120"/>
                 <rect x="730" y="190" width="50" height="120"/>
               </g>
-              <!-- Position error highlight zone -->
-              <circle cx="160" cy="280" r="50" fill="#FF4500" fill-opacity="0.15" stroke="#FF4500" stroke-width="2" stroke-dasharray="4,4"/>
-              <text x="160" y="360" text-anchor="middle" fill="#FF4500" font-family="Montserrat" font-size="11" letter-spacing="2" font-weight="700">POSITION ERROR · #3</text>
+
+              <!-- Exposed corridor (gap Balde left) -->
+              <rect x="180" y="60" width="200" height="120" fill="#FF4500" fill-opacity="0.10" stroke="#FF4500" stroke-width="2" stroke-dasharray="4,4"/>
+              <text x="280" y="105" text-anchor="middle" fill="rgba(255,69,0,0.9)" font-family="Atkinson Hyperlegible" font-size="11" letter-spacing="1.5" font-weight="700">EXPOSED · 14.2 m</text>
+
+              <!-- Where the defensive line SHOULD be -->
+              <line x1="200" y1="120" x2="200" y2="380" stroke="rgba(212,255,0,0.35)" stroke-width="2" stroke-dasharray="6,4"/>
+              <text x="205" y="115" fill="rgba(212,255,0,0.6)" font-family="Atkinson Hyperlegible" font-size="10" letter-spacing="1.5">DEFENSIVE LINE</text>
+
+              <!-- GK #1 Ter Stegen -->
+              <g transform="translate(60,250)">
+                <circle r="14" fill="#0A0A0A" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="11" fill="rgba(255,255,255,0.65)">1</text>
+              </g>
+
+              <!-- #15 Christensen (CB) -->
+              <g transform="translate(200,200)">
+                <circle r="18" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="13" fill="white">15</text>
+              </g>
+
+              <!-- #4 Araújo (C) -->
+              <g transform="translate(200,300)">
+                <circle r="20" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="14" fill="white">4</text>
+              </g>
+
+              <!-- #20 Sergi Roberto (RB) -->
+              <g transform="translate(200,380)">
+                <circle r="18" fill="#0A0A0A" stroke="white" stroke-width="2"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="13" fill="white">20</text>
+              </g>
+
+              <!-- #3 Balde — ghost target position (where he SHOULD be) -->
+              <g transform="translate(200,130)">
+                <circle r="18" fill="none" stroke="rgba(212,255,0,0.7)" stroke-width="2" stroke-dasharray="3,3"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="13" fill="rgba(212,255,0,0.7)">3</text>
+              </g>
+              <text x="200" y="170" text-anchor="middle" fill="rgba(212,255,0,0.7)" font-family="Atkinson Hyperlegible" font-size="9" letter-spacing="1" font-weight="700">TARGET</text>
+
+              <!-- #3 Balde — CURRENT position (overcommitted forward) -->
+              <g transform="translate(360,130)">
+                <circle r="20" fill="#FF4500" stroke="#FF4500" stroke-width="2.5"/>
+                <text text-anchor="middle" dominant-baseline="central" font-family="Montserrat" font-weight="700" font-size="14" fill="#0A0A0A">3</text>
+              </g>
+              <text x="360" y="172" text-anchor="middle" fill="#FF4500" font-family="Atkinson Hyperlegible" font-size="10" letter-spacing="1" font-weight="700">BALDE · NOW</text>
+
+              <!-- Recommendation arrow: current → target -->
+              <line x1="338" y1="130" x2="226" y2="130" stroke="#D4FF00" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-recommend)"/>
             </svg>
+
+            <!-- Insight chip mirroring the left pane's pattern -->
+            <div class="t3-network__insight">
+              <span>Captured ·</span>
+              <strong>#3 Balde 14.2 m off line</strong>
+              <span>· 18 s exposed</span>
+            </div>
           </div>
 
           <div class="t3-cta-bar">
@@ -351,11 +445,10 @@
       </div>
 
       <div class="t4-stage">
-        <div class="t4-alert-chip">
-          <span class="chip chip-alert">
-            <svg class="icon icon-sm"><use href="#icon-alert"/></svg>
-            <span>POSITION ERROR · #3 BALDE OUT OF LINE</span>
-          </span>
+        <div class="t4-alert-chip" role="alert">
+          <svg class="t4-alert-chip__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-alert"/></svg>
+          <span class="t4-alert-chip__label">Position error</span>
+          <span>#3 Balde · LB out of line</span>
         </div>
 
         <svg viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -413,9 +506,12 @@
             <circle cx="560" cy="240" r="18"/>
           </g>
 
-          <!-- Annotation -->
-          <text x="550" y="490" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Atkinson Hyperlegible" font-size="11" letter-spacing="2">DEFENSIVE RESHUFFLE · RECOMMENDED BY AI · 94% CONFIDENCE</text>
         </svg>
+
+        <div class="t4-ai-chip" role="status">
+          <svg class="icon icon-sm t4-ai-chip__icon" width="16" height="16" viewBox="0 0 24 24"><use href="#icon-bolt"/></svg>
+          <span><span class="t4-ai-chip__strong">AI Recommendation</span> · Defensive reshuffle · <span class="t4-ai-chip__strong">94%</span> confidence</span>
+        </div>
       </div>
 
       <div class="t4-foot">
@@ -704,7 +800,7 @@
               <div class="t8-log-row__title">Auto-routed alert → Andrei Popa, Florin Tudor</div>
               <div class="t8-log-row__sub">Fatigue spike #6 Gavi · sub recommended · 71% threshold</div>
             </div>
-            <span class="t8-log-row__status t8-log-row__status--ack">Ack</span>
+            <span class="t8-log-row__status t8-log-row__status--ack">Acknowledged</span>
           </div>
 
           <div class="t8-log-row t8-log-row--received">
@@ -751,6 +847,7 @@
     </main>
   </section>
 
+</div>
 </div>
 
 <script src="tablet.js"></script>

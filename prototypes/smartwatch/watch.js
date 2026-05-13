@@ -9,6 +9,7 @@
 
   function showScreen(id) {
     if (advanceTimer) { clearTimeout(advanceTimer); advanceTimer = null; }
+    document.querySelectorAll('.auto-advance-bar').forEach(el => el.remove());
     let found = false;
     for (const s of screens) {
       const active = s.id === id;
@@ -24,7 +25,15 @@
     const auto = active && active.dataset.auto;
     if (auto) {
       const [target, delay] = auto.split(':');
-      advanceTimer = setTimeout(() => navigate(target), parseInt(delay, 10) || 2000);
+      const ms = parseInt(delay, 10) || 2000;
+      const bar = document.createElement('div');
+      bar.className = 'auto-advance-bar';
+      active.appendChild(bar);
+      requestAnimationFrame(() => {
+        bar.style.transition = `width ${ms}ms linear`;
+        bar.classList.add('auto-advance-bar--filling');
+      });
+      advanceTimer = setTimeout(() => navigate(target), ms);
     }
     if (active) active.focus({ preventScroll: true });
   }

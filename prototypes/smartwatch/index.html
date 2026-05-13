@@ -26,6 +26,8 @@
   <span class="device-chrome__current">W1</span>
 </header>
 
+<div class="device-body">
+  <span class="device-body__indicator" aria-hidden="true"></span>
 <div class="viewport">
 
   <!-- ============================================================
@@ -49,8 +51,8 @@
     </div>
 
     <!-- Tap zones for supporting screens -->
-    <button type="button" data-go="w5" aria-label="Open quick substitution swap" style="position:absolute;top:0;left:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
-    <button type="button" data-go="w6" aria-label="Open player alerts" style="position:absolute;top:0;right:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
+    <button type="button" class="gesture-hotspot" data-go="w5" aria-label="Open quick substitution swap" style="position:absolute;top:0;left:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
+    <button type="button" class="gesture-hotspot" data-go="w6" aria-label="Open player alerts" style="position:absolute;top:0;right:0;width:50%;height:30%;cursor:pointer;z-index:5"></button>
   </section>
 
   <!-- ============================================================
@@ -188,6 +190,7 @@
     <button type="button" class="w6-back" data-go="w1" aria-label="Back to match status">← Back</button>
   </section>
 
+</div>
 </div>
 
 <script src="watch.js"></script>

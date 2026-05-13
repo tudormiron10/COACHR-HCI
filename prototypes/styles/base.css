@@ -185,3 +185,58 @@ ul, ol { list-style: none; }
 
 /* Screen containers must be programmatically focusable for route-change focus management */
 .screen:focus { outline: none; }
+
+/* --- Gesture hotspot: invisible click zones with hover/active affordance --- */
+.gesture-hotspot {
+  background: transparent;
+  transition: background-color 120ms ease-out;
+}
+.gesture-hotspot:hover {
+  background: rgba(212, 255, 0, 0.06);
+}
+.gesture-hotspot:active,
+.gesture-hotspot.is-pressing {
+  background: rgba(212, 255, 0, 0.14);
+}
+
+/* --- Auto-advance progress bar — appears on screens that transition after a delay --- */
+.auto-advance-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent-primary);
+  z-index: 100;
+  pointer-events: none;
+  will-change: width;
+}
+.auto-advance-bar--filling {
+  width: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .auto-advance-bar { transition: none !important; }
+}
+
+/* --- Long-press fill — visual ring/sweep during a hold-to-trigger interaction --- */
+.gesture-longpress {
+  position: absolute;
+  overflow: hidden;
+}
+.gesture-longpress .longpress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(212, 255, 0, 0.18);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1),
+              height 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gesture-longpress.is-pressing .longpress-ring {
+  width: 280px;
+  height: 280px;
+}

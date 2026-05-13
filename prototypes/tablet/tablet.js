@@ -15,6 +15,8 @@
       clearTimeout(advanceTimer);
       advanceTimer = null;
     }
+    // Remove any leftover progress bars from previous auto-advance cycles
+    document.querySelectorAll('.auto-advance-bar').forEach(el => el.remove());
     let found = false;
     for (const s of screens) {
       const active = s.id === id;
@@ -34,7 +36,18 @@
     const auto = active && active.dataset.auto;
     if (auto) {
       const [target, delay] = auto.split(':');
-      advanceTimer = setTimeout(() => navigate(target), parseInt(delay, 10) || 1200);
+      const ms = parseInt(delay, 10) || 1200;
+      // Visible progress bar so users see WHY the screen is about to change
+      const bar = document.createElement('div');
+      bar.className = 'auto-advance-bar';
+      active.appendChild(bar);
+      requestAnimationFrame(() => {
+        bar.style.transition = `width ${ms}ms linear`;
+        bar.classList.add('auto-advance-bar--filling');
+      });
+      advanceTimer = setTimeout(() => {
+        navigate(target);
+      }, ms);
     }
     // Focus the newly-active screen so screen readers announce the new context
     // and keyboard focus moves out of the now-hidden previous screen
@@ -68,5 +81,26 @@
       e.preventDefault();
       navigate(target.dataset.go);
     }
+  });
+
+  // T4 TacticPad toolbar — clicking a tool swaps the active state
+  // Makes the toolbar feel like a real drawing app instead of a static prop
+  document.addEventListener('click', (e) => {
+    const tool = e.target.closest('.t4-tool');
+    if (!tool) return;
+    const toolbar = tool.parentElement;
+    if (!toolbar) return;
+    toolbar.querySelectorAll('.t4-tool').forEach(t => t.classList.remove('is-active'));
+    tool.classList.add('is-active');
+  });
+
+  // T4 saved-formations strip — same pattern
+  document.addEventListener('click', (e) => {
+    const formation = e.target.closest('.t4-formation');
+    if (!formation) return;
+    const row = formation.parentElement;
+    if (!row) return;
+    row.querySelectorAll('.t4-formation').forEach(f => f.classList.remove('is-active'));
+    formation.classList.add('is-active');
   });
 })();
