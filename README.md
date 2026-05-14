@@ -28,6 +28,12 @@ The hub page lets you launch each of the three device prototypes; every screen i
 
 ---
 
+## Video walk-through link
+
+https://drive.google.com/file/d/1gKWDmA5tNpUhRJNC1ygushqH4Vqab_CW/view?usp=sharing
+
+
+
 ## Repository structure
 
 | Path | Contents |
